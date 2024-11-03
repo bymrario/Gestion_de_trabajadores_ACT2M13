@@ -1,116 +1,145 @@
 .employee-list-container {
-    padding: 20px;
-    height: 100vh;
-    background-color: #e2dede;
-  }
-  
-  .employee-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  
-  .employee-card {
-    background: linear-gradient(135deg, #c0a5dd, #8cb2f3);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s;
-    text-align: center;
-  }
-  
-  .employee-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .view-more-button {
-    background-color: #bfeb9b;
-    color: rgb(126, 122, 122);
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    max-width: 90%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .close-button {
-    background-color: #d9534f;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-  
-  .employee-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .employee-card h3 {
-    font-size: 20px;
-    color: #333;
-    margin: 0 0 10px;
-  }
-  
-  .employee-info {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  
-  .employee-info p {
-    margin: 0;
-    font-size: 16px;
-    color: #555;
-  }
-  
-  .employee-info .info-label {
-    font-weight: bold;
-    color: #4cacaf;
-  }
-  
-  .employee-footer {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-  }
-  
-  .employee-button {
-    background-color: #7360df;
-    color: white;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
-  }
-  
-  .employee-button:hover {
-    background-color: #45a049;
-  }
-  
+  padding: 20px;
+  height: 100vh;
+  background-color: #e2dede;
+}
+
+.employee-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.employee-card {
+  background: linear-gradient(135deg, #c0a5dd, #8cb2f3);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s;
+  text-align: center;
+}
+
+.employee-card:hover {
+  transform: scale(1.05);
+}
+
+.view-more-button {
+  background-color: #bfeb9b;
+  color: rgb(126, 122, 122);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  max-width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close-button {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.employee-card:hover {
+  transform: translateY(-5px);
+}
+
+.employee-card h3 {
+  font-size: 20px;
+  color: #333;
+  margin: 0 0 10px;
+}
+
+.employee-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.employee-info p {
+  margin: 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.employee-info .info-label {
+  font-weight: bold;
+  color: #4cacaf;
+}
+
+.employee-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.employee-button {
+  background-color: #7360df;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.employee-button:hover {
+  background-color: #455aa0;
+}
+
+.add-button,  
+.edit-button,  
+.submit-button,  
+.close-button {  
+  padding: 10px 15px;  
+  margin: 5px;  
+  border: none;  
+  border-radius: 5px;  
+  cursor: pointer;  
+  background-color: #eb9c6f; /* Color de fondo */  
+  color: white; /* Color del texto */  
+  transition: background-color 0.3s;  
+}  
+
+.add-button:hover,  
+.edit-button:hover,  
+.submit-button:hover,  
+.close-button:hover {  
+  background-color: #457fa0; /* Color al pasar el mouse */  
+}  
+
+.modal-content input {  
+  display: block;  
+  margin: 10px 0;  
+  padding: 10px;  
+  width: calc(100% - 22px); /* Ajustar el ancho del input */  
+  border-radius: 5px;  
+  border: 1px solid #ccc;  
+}

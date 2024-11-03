@@ -1,173 +1,231 @@
-/* Barra lateral */
+/* ----------------------------------- */
+/* Barra lateral                       */
+/* ----------------------------------- */
 .sidebar {
   width: 15%; /* Mantén el ancho original de la barra lateral */
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  color: #fff;
-  padding: 20px;
-  position: fixed; 
-  height: 100vh;
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Degradado de colores */
+  color: #fff; /* Color de texto */
+  padding: 20px; /* Espaciado interno */
+  position: fixed; /* Fija la barra lateral a la izquierda */
+  height: 100vh; /* Altura completa de la ventana */
 }
 
 .sidebar h1 {
-  font-size: 40px;
-  margin-bottom: 20px;
-  font-family: sans-serif;
+  font-size: 40px; /* Tamaño del título en la barra lateral */
+  margin-bottom: 20px; /* Margen inferior */
+  font-family: sans-serif; /* Fuente sans-serif */
 }
 
 .sidebar ul {
-  list-style: none;
-  padding: 0;
+  list-style: none; /* Sin viñetas */
+  padding: 0; /* Sin padding */
 }
 
 .sidebar ul li a {
-  color: #ffffff;
-  text-decoration: none;
-  display: block;
-  padding: 10px 0;
-  transition: background 0.3s;
+  color: #ffffff; /* Color de texto de los enlaces */
+  text-decoration: none; /* Sin subrayado */
+  display: block; /* Enlaces en bloque */
+  padding: 10px 0; /* Espaciado interno de los enlaces */
+  transition: background 0.3s; /* Transición suave para el fondo */
 }
 
 .sidebar ul li a:hover {
-  background-color: #c5cc62;
+  background-color: #c5cc62; /* Color de fondo al pasar el mouse */
 }
 
-/* Ajuste para main-content */
+/* ----------------------------------- */
+/* Ajuste para el contenido principal   */
+/* ----------------------------------- */
 .main-content {
   margin-left: 15%; /* Deja espacio para la barra lateral */
-  padding: 20px;
-  height: 100vh;
-  display: flex;
-  background-color: #c9c8c8;
-  flex-direction: column;
-  align-items: center;
+  padding: 20px; /* Espaciado interno */
+  height: 150vh; /* Altura completa de la ventana */
+  display: flex; /* Flexbox para el diseño */
+  background-color: #c9c8c8; /* Color de fondo */
+  flex-direction: column; /* Dirección de las columnas */
+  align-items: center; /* Centra el contenido */
 }
 
-/* Tarjeta del usuario */
+/* ----------------------------------- */
+/* Tarjeta del usuario                 */
+/* ----------------------------------- */
 .user-card {
-  display: flex;
-  align-items: center;
-  background: linear-gradient(135deg, #c0a5dd, #8cb2f3);
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  width: 100%;
-  max-width: 800px; /* tamaño máximo de la tarjeta de usuario */
+  display: flex; /* Flexbox para alinear el contenido */
+  align-items: center; /* Centra verticalmente */
+  background: linear-gradient(135deg, #c0a5dd, #8cb2f3); /* Degradado de colores */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra de la tarjeta */
+  margin-bottom: 20px; /* Margen inferior */
+  width: 100%; /* Ancho completo */
+  max-width: 800px; /* Tamaño máximo de la tarjeta de usuario */
 }
 
 .user-info {
-  flex: 1;
+  flex: 1; /* Ocupa el espacio disponible */
 }
 
 .user-info h2 {
-  font-size: 30px;
-  color: #333;
+  font-size: 30px; /* Tamaño del subtítulo */
+  color: #333; /* Color del texto */
 }
 
 .user-info h1 {
-  font-size: 35px;
-  color: #333;
+  font-size: 35px; /* Tamaño del nombre */
+  color: #333; /* Color del texto */
 }
 
 .user-info p {
-  color: #666;
+  color: #666; /* Color del texto */
 }
 
 .profile-image {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-left: 20px;
+  width: 100px; /* Ancho de la imagen de perfil */
+  height: 100px; /* Alto de la imagen de perfil */
+  border-radius: 50%; /* Imagen circular */
+  margin-left: 20px; /* Margen izquierdo */
 }
 
-/* Ajuste para el contenedor de las tarjetas en grid */
+/* ----------------------------------- */
+/* Contenedor de tarjetas en grid      */
+/* ----------------------------------- */
 .card-container {
-  display: grid;
+  display:grid; 
   grid-template-columns: 1fr 1fr; /* Dos columnas para las tarjetas */
-  gap: 30px;
-  width: 100%;
+  gap: 30px; /* Espacio entre las tarjetas */
+  width: 100%; /* Ancho completo */
   max-width: 800px; /* Limita el ancho máximo */
 }
 
+/* ----------------------------------- */
+/* Estilo de las tarjetas              */
+/* ----------------------------------- */
 .card {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  background-color: #fff; /* Color de fondo de la tarjeta */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 20px; /* Espaciado interno */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra de la tarjeta */
+  transition: transform 0.2s; /* Transición suave para transformación */
 }
 
 .card h3 {
-  margin-top: 0;
+  margin-top: 0; /* Sin margen superior */
 }
 
 .card p {
-  color: #666;
+  color: #666; /* Color del texto */
 }
 
 .card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05); /* Escala al pasar el mouse */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra más intensa al pasar el mouse */
 }
 
+/* ----------------------------------- */
+/* Estilo de listas previas           */
+/* ----------------------------------- */
 .preview-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 10px;
+  list-style: none; /* Sin viñetas */
+  padding: 0; /* Sin padding */
+  margin-top: 10px; /* Margen superior */
 }
 
 .preview-list li {
-  padding: 5px 0;
-  color: #555;
-  font-size: 14px;
+  padding: 5px 0; /* Espaciado interno de los elementos de la lista */
+  color: #555; /* Color del texto */
+  font-size: 14px; /* Tamaño del texto */
 }
 
 .view-more {
-  display: block;
-  margin-top: 10px;
-  color: #4CAF50;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.2s;
+  display: block; /* Enlace en bloque */
+  margin-top: 10px; /* Margen superior */
+  color: #4CAF50; /* Color del texto */
+  text-decoration: none; /* Sin subrayado */
+  font-weight: bold; /* Negrita */
+  transition: color 0.2s; /* Transición suave para el color */
 }
 
 .view-more:hover {
-  color: #388E3C;
+  color: #388E3C; /* Color al pasar el mouse */
 }
 
-.container-info {
-  padding: 16px;
-  background-color: #f1f1f1;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.container-info h3 {
-  color: #333;
-  font-size: 20px;
-  margin-bottom: 12px;
-}
-
+/* ----------------------------------- */
+/* Vista previa de documentos          */
+/* ----------------------------------- */
 .document-preview-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+  list-style-type: none; /* Sin viñetas */
+  padding: 0; /* Sin padding */
+  margin: 0; /* Sin margen */
 }
 
 .document-preview-list li {
-  margin-bottom: 8px;
+  margin-bottom: 8px; /* Margen inferior de los elementos de la lista */
 }
 
 .document-preview-list a {
-  text-decoration: none;
-  color: #9e4caf;
-  font-weight: bold;
-  transition: color 0.3s ease;
+  text-decoration: none; /* Sin subrayado */
+  color: #9e4caf; /* Color del texto */
+  font-weight: bold; /* Negrita */
+  transition: color 0.3s ease; /* Transición suave para el color */
 }
 
 .document-preview-list a:hover {
-  color: #652ebd;
+  color: #652ebd; /* Color al pasar el mouse */
 }
 
+/* ----------------------------------- */
+/* Contenedor de tareas                */
+/* ----------------------------------- */
+.task-preview-container {
+  display: flex; /* Flexbox para las tareas */
+  justify-content: space-between; /* Espacio entre las tareas */
+  flex-wrap: wrap; /* Permitir que se ajusten en varias filas */
+  margin-top: 20px; /* Margen superior */
+}
 
+.task-card {
+  background-color: #f9f9f9; /* Color de fondo de la tarjeta de tarea */
+  border: 1px solid #ddd; /* Borde de la tarjeta */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 15px; /* Espaciado interno */
+  margin: 10px; /* Margen entre tarjetas */
+  width: 30%; /* Ancho de las tarjetas de tarea */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra de la tarjeta */
+}
+
+.task-card h4 {
+  margin-bottom: 10px; /* Margen inferior */
+}
+
+.task-card button {
+  background-color: #007bff; /* Color de fondo del botón */
+  color: white; /* Color del texto del botón */
+  border: none; /* Sin borde */
+  padding: 10px 15px; /* Espaciado interno */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor tipo puntero al pasar por encima */
+}
+
+.task-card button:hover {
+  background-color: #0056b3; /* Color al pasar el mouse */
+}
+
+/* ----------------------------------- */
+/* Boton Logout           */
+/* ----------------------------------- */
+
+.logout-button {  
+  background-color: #6d271f; /* Color rojo para el botón */  
+  color: white; /* Color del texto */  
+  border: none;  
+  border-radius: 5px;  
+  padding: 10px 15px;  
+  cursor: pointer;  
+  margin-top: 20px; /* Espacio arriba */  
+  transition: background-color 0.3s, transform 0.3s; /* Efecto de transición */  
+}  
+
+.logout-button:hover {  
+  background-color: #df8e85; /* Color al pasar el mouse */  
+  transform: scale(1.05); /* Efecto de crecimiento */  
+}
