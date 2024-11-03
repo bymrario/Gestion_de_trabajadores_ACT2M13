@@ -1,0 +1,80 @@
+.tasks-container {
+    padding: 20px;
+  }
+  
+  .task-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espacio entre tarjetas */
+  }
+  
+  .task-card {
+    border-radius: 8px;
+    padding: 15px;
+    background: linear-gradient(135deg, #c0a5dd, #8cb2f3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(30% - 20px); /* Tres tarjetas por fila */
+    position: relative; /* Necesario para el estado */
+    transition: transform 0.2s; /* Para el efecto de hover */
+  }
+  
+  .task-card:hover {
+    transform: scale(1.05); /* Efecto de hover */
+  }
+  
+  .status {
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  
+  .status.pendiente {
+    background-color: #ff693b; /* Amarillo para pendiente */
+    color: #000;
+  }
+  
+  .status.progreso {
+    background-color: #eeec7d; /* Azul para en progreso */
+    color: #0e0d0d;
+  }
+  
+  .status.completado {
+    background-color: #4caf50; /* Verde para completado */
+    color: #fff;
+  }
+  
+  .modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
