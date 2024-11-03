@@ -1,9 +1,15 @@
+/* ----------------------------------- */
+/* Contenedor pricipal               */
+/* ----------------------------------- */
 .reports-container {
     padding: 20px;
     background-color: #f5f5f5;
     height: 100vh;
   }
 
+/* ----------------------------------- */
+/* Contenedor de titulo                */
+/* ----------------------------------- */
   .reports-container h2 {
     font-size: 50px;
     font-weight: bold;
@@ -15,7 +21,8 @@
     padding-bottom: 8px;
   }
   
-  .reports-container h2::after {
+  /* estilo del titulo */
+  .reports-container h2::after { 
     content: "";
     position: absolute;
     left: 50%;
@@ -34,13 +41,14 @@
     font-weight: 700;
   }
   
-
+/*Contenedor de la lista*/
   .report-list {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
   }
   
+  /*Contenedor de las tarjetas*/
   .report-card {
     background-color: white;
     padding: 16px;
@@ -50,17 +58,20 @@
     text-align: center;
   }
   
+  /*Titulo de las tarjetas*/
   .report-card h3 {
     font-size: 18px;
     color: #333;
     margin-bottom: 8px;
   }
   
+  /*Fecha*/
   .report-card p {
     color: #777;
     margin-bottom: 12px;
   }
   
+  /*Boton*/
   .report-card button {
     background-color: #4c5eaf;
     color: white;

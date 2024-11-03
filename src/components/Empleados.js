@@ -1,25 +1,40 @@
-import React, { useState } from 'react';  
+import React, { useState, useEffect } from 'react';  
 import './Empleados.css';  
+import app from './config/firebaseConfig'; // Asegúrate de que la ruta sea correcta
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+
 
 const Empleados = () => {  
-  const [employees, setEmployees] = useState([  
-    { dni: '12345678A', name: 'Juan Pérez', position: 'Desarrollador', email: 'juan.perez@empresa.com', phone: '123456789', permissions: 'Admin', workHours: '9:00 - 17:00' },  
-    { dni: '87654321B', name: 'Ana Gómez', position: 'Diseñadora', email: 'ana.gomez@empresa.com', phone: '987654321', permissions: 'User', workHours: '10:00 - 18:00' },  
-    { dni: '12312312C', name: 'Carlos López', position: 'Gerente', email: 'carlos.lopez@empresa.com', phone: '456123789', permissions: 'Admin', workHours: '8:00 - 16:00' },  
-  ]);  
+  const [employees, setEmployees] = useState([]);  
 
-  const [selectedEmployee, setSelectedEmployee] = useState(null);  
-  const [isEditing, setIsEditing] = useState(false);  
-  const [isAdding, setIsAdding] = useState(false); // Nuevo estado para agregar empleados  
-  const [formData, setFormData] = useState({ dni: '', name: '', position: '', email: '', phone: '', permissions: '', workHours: '' });  
+  const db = getFirestore(app); // Inicializa Firestore
 
+ // Función para obtener empleados de Firestore
+ const fetchEmployees = async () => {
+  const empleadosCollection = collection(db, 'empleados');
+  const empleadosSnapshot = await getDocs(empleadosCollection);
+  const empleadosList = empleadosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  setEmployees(empleadosList);
+};
+
+// Llama a la función fetchEmployees cuando el componente se monte
+useEffect(() => {
+  fetchEmployees();
+}, []);
+
+const [selectedEmployee, setSelectedEmployee] = useState(null);  
+const [isEditing, setIsEditing] = useState(false);  
+const [isAdding, setIsAdding] = useState(false);  
+const [formData, setFormData] = useState({ dni: '', name: '', position: '', email: '', phone: '', permissions: '', workHours: '' });   
+
+  //Detalles de empleados en una pantalla modal
   const handleShowDetails = (employee) => {  
     setSelectedEmployee(employee);  
-    setIsEditing(false);  
-    setIsAdding(false); // Asegurarse de que no esté en modo agregar  
+    setIsEditing(false);  //Desactiva edición
+    setIsAdding(false);  //Desactiva agregar
     setFormData(employee); // Cargar datos del empleado en el formulario  
   };  
-
+//Cierra el modal y reinicia los datos del formulario
   const handleCloseModal = () => {  
     setSelectedEmployee(null);  
     setIsEditing(false);  
@@ -27,11 +42,12 @@ const Empleados = () => {
     setFormData({ dni: '', name: '', position: '', email: '', phone: '', permissions: '', workHours: '' }); // Reiniciar el formulario  
   };  
 
+  //Actualiza el formulario 
   const handleInputChange = (e) => {  
     const { name, value } = e.target;  
     setFormData({ ...formData, [name]: value });  
   };  
-
+//Actualiza el formulario ya sea para editar o agregar
   const handleSubmit = (e) => {  
     e.preventDefault();  
     if (isEditing) {  
@@ -44,10 +60,11 @@ const Empleados = () => {
     handleCloseModal(); // Cerrar el modal  
   };  
 
+  //Activa el modo de edición de empleado
   const handleEdit = (employee) => {  
     setSelectedEmployee(employee);  
     setIsEditing(true);  
-    setIsAdding(false); // Asegurarse de que no esté en modo agregar  
+    setIsAdding(false); 
     setFormData(employee); // Cargar datos del empleado en el formulario  
   };  
 

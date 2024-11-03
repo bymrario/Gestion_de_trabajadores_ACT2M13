@@ -4,17 +4,20 @@ import './Registros.css';
 const Registros = () => {
   // Ejemplo de datos de registros
   const registros = [
-    { id: '1', fecha: '01 de noviembre de 2024', empleado: 'Juan Pérez', acción: 'Entrada', correo: 'juan@example.com', telefono: '123456789', permisos: 'Admin', horario: '9:00 - 17:00' },
-    { id: '2', fecha: '01 de noviembre de 2024', empleado: 'Ana Gómez', acción: 'Salida', correo: 'ana@example.com', telefono: '987654321', permisos: 'Usuario', horario: '9:00 - 17:00' },
-    { id: '3', fecha: '02 de noviembre de 2024', empleado: 'Carlos López', acción: 'Entrada', correo: 'carlos@example.com', telefono: '456789123', permisos: 'Editor', horario: '9:00 - 17:00' },
+    { id: '1', fecha: '01 de noviembre de 2024', empleado: 'Juan Pérez', acción: 'Entrada', correo: 'juan@empresa.com', telefono: '123456789', permisos: 'Admin', horario: '9:00 - 17:00' },
+    { id: '2', fecha: '01 de noviembre de 2024', empleado: 'Ana Gómez', acción: 'Salida', correo: 'ana@empresa.com', telefono: '987654321', permisos: 'Usuario', horario: '9:00 - 17:00' },
+    { id: '3', fecha: '02 de noviembre de 2024', empleado: 'Carlos López', acción: 'Entrada', correo: 'carlos@empresa.com', telefono: '456789123', permisos: 'Editor', horario: '9:00 - 17:00' },
   ];
 
+  // Estado para almacenar el registro seleccionado cuando se quiere ver más detalles
   const [selectedRegistro, setSelectedRegistro] = useState(null);
 
+  // Función para manejar el evento de ver más detalles del registro
   const handleVerMas = (registro) => {
     setSelectedRegistro(registro);
   };
 
+  // Función para cerrar el modal y deseleccionar el registro 
   const handleCloseModal = () => {
     setSelectedRegistro(null);
   };

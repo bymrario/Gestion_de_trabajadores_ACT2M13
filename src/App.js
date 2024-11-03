@@ -8,6 +8,15 @@ import Empleados from './components/Empleados';
 import Registros from './components/Registros';
 import Informes from './components/Informes';
 import Tareas from './components/Tareas';
+import firebase from './config/firebaseConfig'; 
+import 'firebase/firestore'; 
+import firebaseConfig from './config/firebaseConfig'; 
+
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 
 function App() {
   

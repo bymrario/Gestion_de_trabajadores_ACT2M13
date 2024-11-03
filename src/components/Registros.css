@@ -1,3 +1,4 @@
+/*Contenedor principal*/
 .registro-list-container {
     padding: 20px;
     background-color: #f9f9f9;
@@ -7,6 +8,7 @@
     margin: auto;
   }
   
+  /*Contenedore de las tarjetas*/
   .registro-card-container {
     display: flex;
     flex-direction: column;
@@ -22,15 +24,18 @@
     transition: box-shadow 0.2s;
   }
   
+  /*ID*/
   .registro-card h3 {
     margin: 0 0 10px;
     color: #333;
   }
   
+  /*Parrafos*/
   .registro-card p {
     margin: 5px 0;
   }
   
+  /*Botones*/
   .registro-card button {
     background-color: #f3f2ef;
     color: rgb(3, 3, 3);

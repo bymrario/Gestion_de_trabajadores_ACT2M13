@@ -1,145 +1,164 @@
-.employee-list-container {
-  padding: 20px;
-  height: 100vh;
-  background-color: #e2dede;
-}
+/* Contenedor para la lista de empleados */  
+.employee-list-container {  
+  padding: 20px; /* Espaciado interno de 20 píxeles */  
+  height: 100vh; /* Altura completa de la ventana del navegador */  
+  background-color: #e2dede; /* Color de fondo gris claro */  
+}  
 
-.employee-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
+/* Estilo para la cuadrícula de tarjetas de empleados */  
+.employee-cards {  
+  display: grid; /* Usar un diseño de cuadrícula */  
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Crear columnas que se ajustan automáticamente */  
+  gap: 20px; /* Espacio de 20 píxeles entre las tarjetas */  
+}  
 
-.employee-card {
-  background: linear-gradient(135deg, #c0a5dd, #8cb2f3);
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: transform 0.3s;
-  text-align: center;
-}
+/* Estilo para cada tarjeta de empleado */  
+.employee-card {  
+  background: linear-gradient(135deg, #c0a5dd, #8cb2f3); /* Fondo con un degradado de colores */  
+  border-radius: 10px; /* Esquinas redondeadas */  
+  padding: 20px; /* Espaciado interno de 20 píxeles */  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor de la tarjeta */  
+  cursor: pointer; /* Cambia el cursor para indicar que es clickeable */  
+  transition: transform 0.3s; /* Transición suave para la transformación */  
+  text-align: center; /* Centrar el texto dentro de la tarjeta */  
+}  
 
-.employee-card:hover {
-  transform: scale(1.05);
-}
+/* Efecto al pasar el mouse sobre la tarjeta */  
+.employee-card:hover {  
+  transform: scale(1.05); /* Escalar la tarjeta ligeramente */  
+}  
 
-.view-more-button {
-  background-color: #bfeb9b;
-  color: rgb(126, 122, 122);
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-}
+/* Estilo para el botón de "Ver más" */  
+.view-more-button {  
+  background-color: #bfeb9b; /* Color de fondo verde claro */  
+  color: rgb(126, 122, 122); /* Color del texto en gris oscuro */  
+  border: none; /* Sin borde */  
+  padding: 8px 16px; /* Espaciado interno */  
+  border-radius: 4px; /* Esquinas redondeadas */  
+  cursor: pointer; /* Cambia el cursor para indicar que es clickeable */  
+  margin-top: 10px; /* Margen superior de 10 píxeles */  
+}  
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
+/* Estilo para el overlay del modal */  
+.modal-overlay {  
+  position: fixed; /* Posición fija para cubrir toda la pantalla */  
+  top: 0; /* Adjuntarlo en la parte superior */  
+  left: 0; /* Adjuntarlo a la izquierda */  
+  width: 100%; /* Ancho completo */  
+  height: 100%; /* Altura completa */  
+  background: rgba(0, 0, 0, 0.6); /* Fondo negro con opacidad */  
+  display: flex; /* Usar flexbox para centrar contenido */  
+  align-items: center; /* Alinear verticalmente al centro */  
+  justify-content: center; /* Alinear horizontalmente al centro */  
+  z-index: 1000; /* Asegurarse de que el overlay esté por encima de otros elementos */  
+}  
 
-.modal-content {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
-  max-width: 90%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+/* Estilo del contenido del modal */  
+.modal-content {  
+  background: #ffffff; /* Fondo blanco para el contenido */  
+  padding: 20px; /* Espaciado interno de 20 píxeles */  
+  border-radius: 10px; /* Esquinas redondeadas */  
+  width: 300px; /* Ancho fijo del modal */  
+  max-width: 90%; /* Ancho máximo del 90% de la pantalla */  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligeramente más pronunciada */  
+}  
 
-.close-button {
-  background-color: #d9534f;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 20px;
-}
+/* Estilo para el botón de cerrar */  
+.close-button {  
+  background-color: #d9534f; /* Color de fondo rojo */  
+  color: white; /* Color del texto en blanco */  
+  border: none; /* Sin borde */  
+  padding: 8px 16px; /* Espaciado interno */  
+  border-radius: 4px; /* Esquinas redondeadas */  
+  cursor: pointer; /* Cambia el cursor para indicar que es clickeable */  
+  margin-top: 20px; /* Margen superior de 20 píxeles */  
+}  
 
-.employee-card:hover {
-  transform: translateY(-5px);
-}
+/* Efecto de movimiento al pasar el mouse sobre la tarjeta */  
+.employee-card:hover {  
+  transform: translateY(-5px); /* Mover la tarjeta ligeramente hacia arriba */  
+}  
 
-.employee-card h3 {
-  font-size: 20px;
-  color: #333;
-  margin: 0 0 10px;
-}
+/* Estilo para los encabezados dentro de la tarjeta de empleado */  
+.employee-card h3 {  
+  font-size: 20px; /* Tamaño de fuente mayor para los encabezados */  
+  color: #333; /* Color del texto en gris oscuro */  
+  margin: 0 0 10px; /* Sin márgenes laterales y margen inferior de 10 píxeles */  
+}  
 
-.employee-info {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+/* Estilo para la información de empleado */  
+.employee-info {  
+  display: flex; /* Usar flexbox para el contenido */  
+  flex-direction: column; /* Colocar elementos en una columna */  
+  gap: 6px; /* Espacio entre los elementos */  
+}  
 
-.employee-info p {
-  margin: 0;
-  font-size: 16px;
-  color: #555;
-}
+/* Estilo para los párrafos dentro de la información del empleado */  
+.employee-info p {  
+  margin: 0; /* Eliminar márgenes */  
+  font-size: 16px; /* Tamaño de fuente para párrafos */  
+  color: #555; /* Color del texto en gris */  
+}  
 
-.employee-info .info-label {
-  font-weight: bold;
-  color: #4cacaf;
-}
+/* Estilo para las etiquetas dentro de la información del empleado */  
+.employee-info .info-label {  
+  font-weight: bold; /* Negrita para las etiquetas */  
+  color: #4cacaf; /* Color del texto en azul claro */  
+}  
 
-.employee-footer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-}
+/* Estilo para el pie de la tarjeta de empleado */  
+.employee-footer {  
+  display: flex; /* Usar flexbox para el contenido */  
+  justify-content: flex-end; /* Alinear contenido al final */  
+  margin-top: 10px; /* Margen superior de 10 píxeles */  
+}  
 
-.employee-button {
-  background-color: #7360df;
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
-}
+/* Estilo para botones en la tarjeta de empleado */  
+.employee-button {  
+  background-color: #7360df; /* Color de fondo azul */  
+  color: white; /* Color del texto en blanco */  
+  padding: 10px 16px; /* Espaciado interno */  
+  border: none; /* Sin borde */  
+  border-radius: 6px; /* Esquinas redondeadas */  
+  cursor: pointer; /* Cambia el cursor para indicar que es clickeable */  
+  font-size: 14px; /* Tamaño de fuente para botones */  
+  transition: background-color 0.3s; /* Transición suave para el color de fondo */  
+}  
 
-.employee-button:hover {
-  background-color: #455aa0;
-}
+/* Efecto al pasar el mouse sobre el botón de empleado */  
+.employee-button:hover {  
+  background-color: #455aa0; /* Cambiar color de fondo al pasar el mouse */  
+}  
 
+/* Estilos generales para botones adicionales */  
 .add-button,  
 .edit-button,  
 .submit-button,  
 .close-button {  
-  padding: 10px 15px;  
-  margin: 5px;  
-  border: none;  
-  border-radius: 5px;  
-  cursor: pointer;  
-  background-color: #eb9c6f; /* Color de fondo */  
-  color: white; /* Color del texto */  
-  transition: background-color 0.3s;  
+  padding: 10px 15px; /* Espaciado interno para todos los botones */  
+  margin: 5px; /* Margen de 5 píxeles alrededor de los botones */  
+  border: none; /* Sin borde */  
+  border-radius: 5px; /* Esquinas redondeadas */  
+  cursor: pointer; /* Cambia el cursor para indicar que es clickeable */  
+  background-color: #eb9c6f; /* Color de fondo anaranjado */  
+  color: white; /* Color del texto en blanco */  
+  transition: background-color 0.3s; /* Transición suave para el color de fondo */  
 }  
 
+/* Efecto al pasar el mouse sobre los botones adicionales */  
 .add-button:hover,  
 .edit-button:hover,  
 .submit-button:hover,  
 .close-button:hover {  
-  background-color: #457fa0; /* Color al pasar el mouse */  
+  background-color: #457fa0; /* Cambiar color de fondo al pasar el mouse */  
 }  
 
+/* Estilo para los campos de entrada dentro del modal */  
 .modal-content input {  
-  display: block;  
-  margin: 10px 0;  
-  padding: 10px;  
-  width: calc(100% - 22px); /* Ajustar el ancho del input */  
-  border-radius: 5px;  
-  border: 1px solid #ccc;  
+  display: block; /* Mostrar como bloque */  
+  margin: 10px 0; /* Margen superior e inferior de 10 píxeles */  
+  padding: 10px; /* Espaciado interno de 10 píxeles */  
+  width: calc(100% - 22px); /* Ancho del input ajustado para mantener uniformidad */  
+  border-radius: 5px; /* Esquinas redondeadas */  
+  border: 1px solid #ccc; /* Borde gris claro */  
 }
