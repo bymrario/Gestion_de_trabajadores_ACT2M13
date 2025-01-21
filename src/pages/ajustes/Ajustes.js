@@ -138,7 +138,7 @@ function Settings() {
                     className={`${classes.button} ${classes.buttonPrimary}`}
                     onClick={() => alert('Ajustes guardados')}
                 >
-                    Guardar Ajustes
+                    Guardar 
                 </button>
             </div>
         </div>
