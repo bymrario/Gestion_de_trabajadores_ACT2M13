@@ -15,13 +15,15 @@ function Routes() {
         window.scrollTo(0, 0);
     }, [pathname]);
 
-    const isUserLoggedIn = !!localStorage.getItem('usernameOrEmail');
+    // const isUserLoggedIn = !!localStorage.getItem('usernameOrEmail');
+    const isUserLoggedIn = true;
 
+    
     if (!isUserLoggedIn && pathname !== '/login') {
         history.push('/login');
     }
 
-    // const isUserLoggedIn = true;
+    
     return isUserLoggedIn ? <PrivateSection /> : <PublicRoutes />;
 }
 

@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import SLUGS from 'resources/slugs';
 import LoadingComponent from 'components/loading';
 import NotesComponent from 'components/notes/NotesComponent';
+import KanbanPage from 'pages/kanban/KanbanPage';
 
 const DashboardComponent = lazy(() => import('./dashboard'));
 
@@ -11,9 +12,10 @@ function PrivateRoutes() {
         <Suspense fallback={<LoadingComponent loading />}>
             <Switch>
                 <Route exact path={SLUGS.dashboard} component={DashboardComponent} />
-                <Route exact path={SLUGS.kanbanTwo} render={() => <div>KanbanTwo</div>} />
+                <Route exact path={SLUGS.kanbanTwo} render={() => <div>Listado</div>} />
                 <Route exact path={SLUGS.kanbanThree} render={() => <div>KanbanThree</div>} />
-                <Route exact path={SLUGS.kanban} render={() => <div>Kanban</div>} />
+                {/* <Route exact path={SLUGS.kanban} render={() => <div>Kanban</div>} /> */}
+                <Route exact path={SLUGS.kanban} component={KanbanPage} />
                 <Route exact path={SLUGS.proyectos} render={() => <div>Proyectos</div>} />
                 <Route exact path={SLUGS.ideasTwo} render={() => <div>IdeasTwo</div>} />
                 <Route exact path={SLUGS.ideasThree} render={() => <div>IdeasThree</div>} />

@@ -3,15 +3,15 @@ import { createUseStyles, useTheme } from 'react-jss';
 import { useHistory } from 'react-router-dom';
 import SLUGS from 'resources/slugs';
 import {
-    IconAgents,
-    IconArticles,
+    IconKanban,
+    IconNotes,
     IconContacts,
     IconIdeas,
     IconLogout,
     IconOverview,
     IconSettings,
     IconSubscription,
-    IconTickets
+    IconProyects
 } from 'assets/icons';
 import { convertSlugToUrl } from 'resources/utilities';
 import LogoComponent from './LogoComponent';
@@ -85,30 +85,30 @@ function SidebarComponent() {
             >
                 <MenuItem
                     id={SLUGS.kanban}
-                    title='Sub Item 1'
+                    title='Tablero'
                     level={2}
-                    icon={IconAgents}
+                    icon={IconKanban}
                     onClick={() => onClick(SLUGS.kanban)}
                 />
                 <MenuItem
                     id={SLUGS.kanbanTwo}
-                    title='Sub Item 2'
+                    title='Listado'
                     level={2}
                     icon={IconContacts}
                     onClick={() => onClick(SLUGS.kanbanTwo)}
                 />
-                <MenuItem
+                {/* <MenuItem
                     id={SLUGS.kanbanThree}
                     title='Sub Item 3'
                     level={2}
-                    icon={IconArticles}
+                    icon={IconNotes}
                     onClick={() => onClick(SLUGS.kanbanThree)}
-                />
+                /> */}
             </MenuItem>
             <MenuItem
                 id={SLUGS.proyectos}
                 title='Proyectos'
-                icon={IconTickets}
+                icon={IconProyects}
                 onClick={() => onClick(SLUGS.proyectos)}
             />
             <MenuItem
@@ -121,7 +121,7 @@ function SidebarComponent() {
                     id={SLUGS.ideas}
                     title='Sub Item 1'
                     level={2}
-                    icon={IconAgents}
+                    icon={IconKanban}
                     onClick={() => onClick(SLUGS.ideas)}
                 />
                 <MenuItem
@@ -135,7 +135,7 @@ function SidebarComponent() {
                     id={SLUGS.ideasThree}
                     title='Sub Item 3'
                     level={2}
-                    icon={IconArticles}
+                    icon={IconNotes}
                     onClick={() => onClick(SLUGS.ideasThree)}
                 />
             </MenuItem>
@@ -148,13 +148,13 @@ function SidebarComponent() {
             <MenuItem
                 id={SLUGS.clientes}
                 title='Clientes'
-                icon={IconAgents}
+                icon={IconKanban}
                 onClick={() => onClick(SLUGS.clientes)}
             />
             <MenuItem
                 id={SLUGS.notas}
                 title='Notas'
-                icon={IconArticles}
+                icon={IconNotes}
                 onClick={() => onClick(SLUGS.notas)}
             />
             <MenuItem

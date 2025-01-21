@@ -1,8 +1,8 @@
 import IconCheckboxOff from './checkbox-off';
 import IconCheckboxOn from './checkbox-on';
-import IconAgents from './icon-agents';
+import IconKanban from './icon-kanban';
 import IconArrowUp from './icon-arrow-up';
-import IconArticles from './icon-articles';
+import IconNotes from './icon-notes';
 import IconBell from './icon-bell-new';
 import IconBurger from './icon-burger';
 import IconContacts from './icon-contacts';
@@ -13,14 +13,14 @@ import IconOverview from './icon-overview';
 import IconSearch from './icon-search';
 import IconSettings from './icon-settings';
 import IconSubscription from './icon-subscription';
-import IconTickets from './icon-tickets';
+import IconProyects from './icon-proyects';
 
 export {
     IconCheckboxOff,
     IconCheckboxOn,
-    IconAgents,
+    IconKanban,
     IconArrowUp,
-    IconArticles,
+    IconNotes,
     IconBell,
     IconBurger,
     IconContacts,
@@ -31,5 +31,5 @@ export {
     IconSearch,
     IconSettings,
     IconSubscription,
-    IconTickets
+    IconProyects
 };
