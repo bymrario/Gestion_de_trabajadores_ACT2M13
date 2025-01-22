@@ -1,25 +1,22 @@
 package org.grupo9.gestion_de_trabajadores_act2m13.model;
 
-import org.springframework.stereotype.Component;
-
-@Component
-public class Usuario {
+public class Cliente {
 
     private String id;
-    private String nombreUsuario;
+    private String nombreCliente;
     private String correo;
     private String contrasena;
     private String rol;
     private boolean activo;
 
-    // Constructor
-    public Usuario() {
+    // Constructor vacío
+    public Cliente() {
     }
 
     // Constructor completo
-    public Usuario(String id, String nombreUsuario, String correo, String contrasena, String rol, boolean activo) {
+    public Cliente(String id, String nombreCliente, String correo, String contrasena, String rol, boolean activo) {
         this.id = id;
-        this.nombreUsuario = nombreUsuario;
+        this.nombreCliente = nombreCliente;
         this.correo = correo;
         this.contrasena = contrasena;
         this.rol = rol;
@@ -35,12 +32,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getNombreCliente() {
+        return nombreCliente;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 
     public String getCorreo() {
