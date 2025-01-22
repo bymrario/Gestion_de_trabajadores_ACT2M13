@@ -11,6 +11,7 @@ const Clientes = lazy(() => import('pages/clientes/Clientes'));
 const Proyectos = lazy(() => import('pages/proyectos/proyectos'));
 const Ideas = lazy(() => import('pages/ideas/Ideas'));
 const Ajustes = lazy(() => import('pages/ajustes/Ajustes'));
+const Facturacion = lazy(() => import('pages/facturacion/Facturacion'));
 
 
 function PrivateRoutes() {
@@ -28,7 +29,7 @@ function PrivateRoutes() {
                 <Route exact path={SLUGS.clientes} component={Clientes} />
                 <Route exact path={SLUGS.notas} render={() => <div>Notas</div>} />
                 <Route exact path={SLUGS.ajustes} component={Ajustes} />
-                <Route exact path={SLUGS.facturacion} render={() => <div>Facturación</div>} />
+                <Route exact path={SLUGS.facturacion} component={Facturacion} />
                 <Redirect to={SLUGS.dashboard} />
             </Switch>
         </Suspense>
