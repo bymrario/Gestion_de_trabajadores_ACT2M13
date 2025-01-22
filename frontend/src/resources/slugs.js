@@ -12,6 +12,7 @@ export default {
     clientes: '/clientes',
     notas: '/notas',
     ajustes: '/ajustes',
+    perfil: '/profile',
     facturacion: '/facturacion',
     // rutas auth
     login: '/login',

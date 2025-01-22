@@ -123,8 +123,8 @@ function HeaderComponent() {
         }
     };
 
-    function onSettingsClick() {
-        push(SLUGS.ajustes);
+    function onProfileClick() {
+        push(SLUGS.perfil);
     }
 
     return (
@@ -175,8 +175,8 @@ function HeaderComponent() {
                     }
                     options={[
                         {
-                            label: 'Ajustes',
-                            onClick: onSettingsClick
+                            label: 'Perfil',
+                            onClick: onProfileClick
                         },
                         {
                             label: 'Cerrar Sesión',
