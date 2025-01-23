@@ -295,78 +295,77 @@ public class AuthService {
     //Proyecto
 
     // Crear un nuevo proyecto
-public String crearProyecto(Proyecto proyecto) {
-    Firestore dbFirestore = FirestoreClient.getFirestore();
-    try {
-        DocumentReference docRef = dbFirestore.collection("proyectos").document(); // Genera un ID único automáticamente
-        proyecto.setEmpleadoId(docRef.getId());
-        ApiFuture<WriteResult> future = docRef.set(proyecto);
-        return "Proyecto creado con éxito. ID: " + docRef.getId();
-    } catch (Exception e) {
-        e.printStackTrace();
-        return "Error al crear el proyecto: " + e.getMessage();
+    public String crearProyecto(Proyecto proyecto) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        try {
+            DocumentReference docRef = dbFirestore.collection("proyectos").document(); // Genera un ID único automáticamente
+            proyecto.setEmpleadoId(docRef.getId());
+            ApiFuture<WriteResult> future = docRef.set(proyecto);
+            return "Proyecto creado con éxito. ID: " + docRef.getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error al crear el proyecto: " + e.getMessage();
+        }
     }
-}
 
-// Obtener un proyecto por ID
-public Proyecto obtenerProyectoPorId(String idProyecto) throws ExecutionException, InterruptedException {
-    Firestore dbFirestore = FirestoreClient.getFirestore();
-    DocumentReference docRef = dbFirestore.collection("proyectos").document(idProyecto);
-    ApiFuture<DocumentSnapshot> future = docRef.get();
-    DocumentSnapshot document = future.get();
-
-    if (document.exists()) {
-        return document.toObject(Proyecto.class);
-    } else {
-        return null; // Retorna null si no encuentra el proyecto
-    }
-}
-
-// Actualizar un proyecto existente
-public String actualizarProyecto(String idProyecto, Proyecto proyectoActualizado) {
-    Firestore dbFirestore = FirestoreClient.getFirestore();
-    try {
+    // Obtener un proyecto por ID
+    public Proyecto obtenerProyectoPorId(String idProyecto) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference docRef = dbFirestore.collection("proyectos").document(idProyecto);
         ApiFuture<DocumentSnapshot> future = docRef.get();
         DocumentSnapshot document = future.get();
 
         if (document.exists()) {
-            docRef.set(proyectoActualizado); // Sobrescribe el documento existente
-            return "Proyecto actualizado con éxito. ID: " + idProyecto;
+            return document.toObject(Proyecto.class);
         } else {
-            return "Error: No se encontró ningún proyecto con el ID proporcionado.";
+            return null; // Retorna null si no encuentra el proyecto
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-        return "Error al actualizar el proyecto: " + e.getMessage();
     }
-}
 
-// Eliminar un proyecto por ID
-public String eliminarProyecto(String idProyecto) {
-    Firestore dbFirestore = FirestoreClient.getFirestore();
-    try {
-        DocumentReference docRef = dbFirestore.collection("proyectos").document(idProyecto);
-        ApiFuture<WriteResult> writeResult = docRef.delete();
-        return "Proyecto eliminado con éxito. ID: " + idProyecto;
-    } catch (Exception e) {
-        e.printStackTrace();
+    // Actualizar un proyecto existente
+    public String actualizarProyecto(String idProyecto, Proyecto proyectoActualizado) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        try {
+            DocumentReference docRef = dbFirestore.collection("proyectos").document(idProyecto);
+            ApiFuture<DocumentSnapshot> future = docRef.get();
+            DocumentSnapshot document = future.get();
+
+            if (document.exists()) {
+                docRef.set(proyectoActualizado); // Sobrescribe el documento existente
+                return "Proyecto actualizado con éxito. ID: " + idProyecto;
+            } else {
+                return "Error: No se encontró ningún proyecto con el ID proporcionado.";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error al actualizar el proyecto: " + e.getMessage();
+        }
+    }
+
+    // Eliminar un proyecto por ID
+    public String eliminarProyecto(String idProyecto) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        try {
+            DocumentReference docRef = dbFirestore.collection("proyectos").document(idProyecto);
+            ApiFuture<WriteResult> writeResult = docRef.delete();
+            return "Proyecto eliminado con éxito. ID: " + idProyecto;
+        } catch (Exception e) {
+            e.printStackTrace();
         return "Error al eliminar el proyecto: " + e.getMessage();
+        }
     }
-}
 
-// Obtener todos los proyectos
-public List<Proyecto> obtenerTodosLosProyectos() throws ExecutionException, InterruptedException {
-    Firestore dbFirestore = FirestoreClient.getFirestore();
-    ApiFuture<QuerySnapshot> future = dbFirestore.collection("proyectos").get();
-    List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-    List<Proyecto> proyectos = new ArrayList<>();
+    // Obtener todos los proyectos
+    public List<Proyecto> obtenerTodosLosProyectos() throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future = dbFirestore.collection("proyectos").get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        List<Proyecto> proyectos = new ArrayList<>();
 
-    for (QueryDocumentSnapshot document : documents) {
-        proyectos.add(document.toObject(Proyecto.class));
+        for (QueryDocumentSnapshot document : documents) {
+            proyectos.add(document.toObject(Proyecto.class));
+        }
+        return proyectos;
     }
-    return proyectos;
-}
        
-    
 }
