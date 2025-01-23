@@ -1,58 +1,56 @@
 package org.grupo9.gestion_de_trabajadores_act2m13.model;
 
-import org.springframework.stereotype.Component;
 import java.util.Date;
+import java.util.List;
 
-@Component
 public class Empleado {
 
-    private Long id;
+    private String id;
     private String nombre;
     private String apellidos;
     private String dniNIE;
     private String correo;
     private String telefono;
-    private Date fechaInicio;
-    private String departamento;
-    private String horarioTrabajo;
-    private String rolAcceso;
     private String direccion;
     private Date fechaNacimiento;
-    private String estadoLaboral;
-    private Date fechaFinContrato;
-    private String supervisor;
+    private String contrasena;      
+    private List<String> notas;// Notas personales del freelancer
+    private List<Cliente> listaClientes;
+    private List<String> especialidades; 
+    private String portafolio; 
 
-    // Constructor
+    // Constructor vacío
     public Empleado() {
         super();
     }
 
-    // Constructor completo
-    public Empleado(String nombre, String apellidos, String dniNIE, String correo, String telefono,
-                    Date fechaInicio, String departamento, String horarioTrabajo, String rolAcceso,
-                    String direccion, Date fechaNacimiento, String estadoLaboral, Date fechaFinContrato, String supervisor) {
+    // Constructor completo (si lo necesitas)
+    public Empleado(String id, String nombre, String apellidos, String dniNIE, String correo,
+                    String telefono, String direccion, Date fechaNacimiento, String contrasena,
+                    List<String> notas, List<Cliente> listaClientes, List<String> especialidades,
+                    String portafolio) {
+
+        this.id = id;  // Ahora es String
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dniNIE = dniNIE;
         this.correo = correo;
         this.telefono = telefono;
-        this.fechaInicio = fechaInicio;
-        this.departamento = departamento;
-        this.horarioTrabajo = horarioTrabajo;
-        this.rolAcceso = rolAcceso;
         this.direccion = direccion;
         this.fechaNacimiento = fechaNacimiento;
-        this.estadoLaboral = estadoLaboral;
-        this.fechaFinContrato = fechaFinContrato;
-        this.supervisor = supervisor;
+        this.contrasena = contrasena;
+        this.notas = notas;
+        this.listaClientes = listaClientes;
+        this.especialidades = especialidades;
+        this.portafolio = portafolio;
     }
 
-    // Getters y Setters
-    public Long getId() {
+    // Getters y setters
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -96,38 +94,6 @@ public class Empleado {
         this.telefono = telefono;
     }
 
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public String getDepartamento() {
-        return departamento;
-    }
-
-    public void setDepartamento(String departamento) {
-        this.departamento = departamento;
-    }
-
-    public String getHorarioTrabajo() {
-        return horarioTrabajo;
-    }
-
-    public void setHorarioTrabajo(String horarioTrabajo) {
-        this.horarioTrabajo = horarioTrabajo;
-    }
-
-    public String getRolAcceso() {
-        return rolAcceso;
-    }
-
-    public void setRolAcceso(String rolAcceso) {
-        this.rolAcceso = rolAcceso;
-    }
-
     public String getDireccion() {
         return direccion;
     }
@@ -144,27 +110,43 @@ public class Empleado {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getEstadoLaboral() {
-        return estadoLaboral;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setEstadoLaboral(String estadoLaboral) {
-        this.estadoLaboral = estadoLaboral;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
-    public Date getFechaFinContrato() {
-        return fechaFinContrato;
+    public List<String> getNotas() {
+        return notas;
     }
 
-    public void setFechaFinContrato(Date fechaFinContrato) {
-        this.fechaFinContrato = fechaFinContrato;
+    public void setNotas(List<String> notas) {
+        this.notas = notas;
     }
 
-    public String getSupervisor() {
-        return supervisor;
+    public List<Cliente> getListaClientes() {
+        return listaClientes;
     }
 
-    public void setSupervisor(String supervisor) {
-        this.supervisor = supervisor;
+    public void setListaClientes(List<Cliente> listaClientes) {
+        this.listaClientes = listaClientes;
+    }
+
+    public List<String> getEspecialidades() {
+        return especialidades;
+    }
+
+    public void setEspecialidades(List<String> especialidades) {
+        this.especialidades = especialidades;
+    }
+
+    public String getPortafolio() {
+        return portafolio;
+    }
+
+    public void setPortafolio(String portafolio) {
+        this.portafolio = portafolio;
     }
 }

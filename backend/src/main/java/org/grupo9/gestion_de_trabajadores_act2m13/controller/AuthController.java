@@ -4,16 +4,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import org.grupo9.gestion_de_trabajadores_act2m13.model.Cliente;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Empleado;
-import org.grupo9.gestion_de_trabajadores_act2m13.model.Usuario;
+import org.grupo9.gestion_de_trabajadores_act2m13.model.Factura;
+import org.grupo9.gestion_de_trabajadores_act2m13.model.Tarea;
 import org.grupo9.gestion_de_trabajadores_act2m13.service.AuthService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,107 +23,126 @@ public class AuthController {
 
     private final AuthService authService;
 
-    public AuthController(AuthService crudService) {
-        this.authService = crudService;
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
-    @PostMapping("/registrarUsuario")
-    public String registrarUsuario(@RequestBody Usuario usuario) throws InterruptedException, ExecutionException {
-        return authService.registrarNuevoUsuario(usuario);
+
+    // Endpoints Cliente
+    @PostMapping("/registrarCliente") // Ejemplo de uso POST http://localhost:8083/registrarCliente
+    //{
+    // "nombreCliente": "Mario",
+    // "correo": "mario@prueba.com",
+    // "contrasena": "hola",
+    // "activo": true
+    //}
+    public String registrarCliente(@RequestBody Cliente cliente) {
+        return authService.registrarNuevoCliente(cliente);
     }
 
-    @PostMapping("/login")
-    public String login(@RequestBody Map<String, String> loginData) {
-        String usernameOrEmail = loginData.get("usernameOrEmail");
-        String password = loginData.get("password");
-        return authService.loginUsuario(usernameOrEmail, password);
+    @GetMapping("/clientes") // Ejemplo de uso GET http://localhost:8083/clientes (PRESTAR ATENCIÓN A LA S FINAL, NO ES CLIENTE, ES CLIENTES)
+    public List<Cliente> obtenerTodosLosClientes() throws ExecutionException, InterruptedException {
+        return authService.obtenerTodosLosClientes();
     }
 
-    @PostMapping("/logout")
-    public String logout(@RequestBody Map<String, String> loginData) {
-        String usernameOrEmail = loginData.get("usernameOrEmail");
-        return authService.logoutUsuario(usernameOrEmail);
+    @GetMapping("/cliente") // Ejemplo de uso GET http://localhost:8083/cliente?id=MW06EtzoylDFNPWOAFHq (AHORA ES CLIENTE, NO CLIENTES. LE AÑADIMOS EL PARAMETRO id seguido del ID en firebase)
+    public Cliente obtenerDatosCliente(@RequestParam String id) throws ExecutionException, InterruptedException {
+        return authService.obtenerDatosCliente(id);
     }
 
-    @PostMapping("/crearEmpleado")
-    public String crearEmpleado(@RequestBody Empleado empleado) throws InterruptedException, ExecutionException {
-        return authService.guardarDatosEmpleado(empleado);
+    @DeleteMapping("/cliente") // Ejemplo de uso DELETE http://localhost:8083/cliente?id=MW06EtzoylDFNPWOAFHq (VOLVEMOS A LLAMAR A CLIENTE Y LE PASAMOS EL ID QUE QUERAMOS ELIMINAR DE FIREBASE)
+    public String eliminarCliente(@RequestParam String id) throws ExecutionException, InterruptedException {
+        return authService.eliminarDatosCliente(id);
     }
 
-    @GetMapping("/empleados")
-    public List<Empleado> obtenerTodosLosEmpleados() throws InterruptedException, ExecutionException {
-        return authService.obtenerTodosLosEmpleados();
+
+    // Endpoints Empleado (Solo será uno)
+
+    @PostMapping("/loginEmpleado") // Ejemplo de uso POST http://localhost:8083/loginEmpleado
+    //{
+    // "correo": "prueba@hola.com",
+    // "contrasena": "pruebaborrar"
+    //} Se comprueba si el empleado existe con las credenciales proporcionadas
+    public String loginEmpleadoo(@RequestBody Map<String, String> loginData) {
+        String correo = loginData.get("correo");
+        String contrasena = loginData.get("contrasena");
+        return authService.loginEmpleado(correo, contrasena);
     }
 
-    @GetMapping("/obtenerDatosEmpleado")
-    public Empleado obtenerEmpleado(@RequestHeader() String nombre) throws InterruptedException, ExecutionException {
-        return authService.obtenerDatosEmpleado(nombre);
+    @GetMapping("/empleado") //Obtenemos los empleados por su ID especifica en firebase GET http://localhost:8083/empleado?id=1
+    public Empleado obtenerDatosEmpleadoPorId(@RequestParam String id) throws ExecutionException, InterruptedException {
+        return authService.obtenerDatosEmpleadoPorId(id);
     }
 
-    @PutMapping("/actualizarEmpleado")
-    public String actualizarEmpleado(@RequestBody Empleado empleado) throws InterruptedException, ExecutionException {
+    @PutMapping("/actualizarEmpleado") // Ejemplo de uso PUT http://localhost:8083/actualizarEmpleado 
+    //{
+    // "id": "1",
+    // "nombre": "Mario",
+    // "correo": "mario@actualizar.com",
+    // "contrasena": "contraseñaActualizada",
+    // "activo": true,
+    // "rol": "admin"
+    //}
+    public String actualizarEmpleado(@RequestBody Empleado empleado) throws ExecutionException, InterruptedException {
         return authService.actualizarDatosEmpleado(empleado);
     }
 
-    @DeleteMapping("/eliminarEmpleado")
-    public String eliminarEmpleado(@RequestHeader String nombre) throws ExecutionException, InterruptedException {
-        return authService.eliminarDatosEmpleado(nombre);
+
+    // Endpoints tareas
+
+    @PostMapping("/tareas")
+    // Ejemplo JSON válido para agregar una tarea:
+    // {
+    //   "titulo": "Pruebaempleadoid",
+    //   "descripcion": "empleadoid no quiere funcionar",
+    //   "estado": "pendiente",
+    //   "etiqueta": "prueba",
+    //   "fechaVencimiento": "2025-01-30T12:00:00",
+    //   "prioridad": "alta",
+    //   "empleadoId": "1"
+    // } empleadoId permanecerá siempre como 1 y deberá ser incluido en cada POST que se haga
+    public String agregarTarea(@RequestBody Tarea tarea) throws ExecutionException, InterruptedException {
+        return authService.agregarTarea(tarea);
     }
 
-    @GetMapping("/buscarEmpleado")
-    public List<Empleado> buscarEmpleado(@RequestParam String criterio, @RequestParam String valor) throws ExecutionException, InterruptedException {
-        return authService.buscarEmpleado(criterio, valor);
-    }
-    @PatchMapping("/actualizarEmpleadoParcial")
-    public String actualizarEmpleadoParcial(@RequestBody Map<String, Object> updates, @RequestParam String id) throws ExecutionException, InterruptedException {
-        return authService.actualizarEmpleadoParcial(updates, id);
+    @GetMapping("/tareas") // Ejemplo de uso GET http://localhost:8083/tareas?empleadoId=1 empleadoId SERÁ SIEMPRE 1, porque solo estamos manejando un usuario
+    public List<Tarea> obtenerTareas(@RequestParam String empleadoId) throws ExecutionException, InterruptedException {
+        return authService.obtenerTareasPorEmpleadoId(empleadoId);
     }
 
-    @GetMapping("/contarEmpleados")
-    public long contarEmpleados() throws ExecutionException, InterruptedException {
-        return authService.contarEmpleados();
+    @PutMapping("/tareas/{id}") // Ejemplo de uso PUT http://localhost:8083/tareas/ID TAREA 
+    public String actualizarTarea(@PathVariable String id, @RequestBody Tarea tareaActualizada) throws ExecutionException, InterruptedException {
+        return authService.actualizarTarea(id, tareaActualizada);
     }
 
-    @GetMapping("/obtenerTodosLosUsuarios")
-    public List<Usuario> obtenerTodosLosUsuarios() throws ExecutionException, InterruptedException {
-        return authService.obtenerTodosLosUsuarios();
+    @DeleteMapping("/tareas/{id}") // Ejemplo de uso DELETE http://localhost:8083/tareas/ID TAREA
+    public String eliminarTarea(@PathVariable String id) throws ExecutionException, InterruptedException {
+        return authService.eliminarTarea(id);
     }
 
-    @GetMapping("/contarUsuarios")
-    public long contarUsuarios() {
-        return authService.contarUsuarios();
+    @PostMapping("/facturas")
+    public String crearFactura(@RequestBody Factura factura) {
+        return authService.crearFactura(factura);
     }
 
-    @PutMapping("/actualizarUsuario")
-    public String actualizarUsuario(@RequestBody Usuario usuario) throws ExecutionException, InterruptedException {
-        return authService.actualizarDatosUsuario(usuario);
+    @GetMapping("/facturas/{idFactura}")
+    public Factura obtenerFacturaPorId(@PathVariable String idFactura) throws ExecutionException, InterruptedException {
+        return authService.obtenerFacturaPorId(idFactura);
     }
 
-    @GetMapping("/obtenerDatosUsuario")
-    public Usuario obtenerDatosUsuario(@RequestParam String id) throws ExecutionException, InterruptedException {
-        return authService.obtenerDatosUsuario(id);
+    @PutMapping("/facturas/{idFactura}")
+    public String actualizarFactura(@PathVariable String idFactura, @RequestBody Factura facturaActualizada) {
+        return authService.actualizarFactura(idFactura, facturaActualizada);
     }
 
-    @GetMapping("/buscarUsuario")
-    public List<Usuario> buscarUsuario(@RequestParam String criterio, @RequestParam String valor) throws ExecutionException, InterruptedException {
-        return authService.buscarUsuario(criterio, valor);
+    @DeleteMapping("/facturas/{idFactura}")
+    public String eliminarFactura(@PathVariable String idFactura) {
+        return authService.eliminarFactura(idFactura);
     }
 
-    @DeleteMapping("/eliminarUsuario")
-    public String eliminarUsuario(@RequestParam String id) throws ExecutionException, InterruptedException {
-        return authService.eliminarDatosUsuario(id);
-    }
-
-    @PutMapping("/cambiarContrasenaUsuario")
-    public String cambiarContrasenaUsuario(@RequestBody Map<String, String> datos) {
-        String id = datos.get("id");
-        String nuevaContrasena = datos.get("nuevaContrasena");
-        return authService.cambiarContrasenaUsuario(id, nuevaContrasena);
-    }
-
-    @PatchMapping("/actualizarUsuarioParcial")
-    public String actualizarUsuarioParcial(@RequestBody Map<String, Object> updates, @RequestParam String id) throws ExecutionException, InterruptedException {
-        return authService.actualizarUsuarioParcial(updates, id);
+    @GetMapping("/facturas")
+    public List<Factura> obtenerTodasLasFacturas() throws ExecutionException, InterruptedException {
+        return authService.obtenerTodasLasFacturas();
     }
 
 }
