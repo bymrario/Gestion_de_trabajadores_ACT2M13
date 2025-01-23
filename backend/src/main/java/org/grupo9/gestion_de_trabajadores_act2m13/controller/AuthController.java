@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Cliente;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Empleado;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Factura;
+import org.grupo9.gestion_de_trabajadores_act2m13.model.Proyecto;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Tarea;
 import org.grupo9.gestion_de_trabajadores_act2m13.service.AuthService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -173,6 +174,63 @@ public class AuthController {
     @GetMapping("/facturas")//revisar
     public List<Factura> obtenerTodasLasFacturas() throws ExecutionException, InterruptedException {
         return authService.obtenerTodasLasFacturas();
+    }
+
+    // Endpoints proyectos
+
+    @PostMapping("/proyectos")
+    /* Ejemplo de uso POST http://localhost:8083/proyectos
+    {
+    "nombre": "Proyecto",
+    "descripcion": "Descripción del proyecto",
+    "estado": "En progreso",
+    "prioridad": "Alta",
+    "fechaCreacion": "2025-01-23T12:00:00",
+    "fechaVencimiento": "2025-02-15T12:00:00",
+    "etiqueta": "Importante",
+    "empleadoId": "1",
+    "kanban": true,
+    "precio": "1",
+    "empresa": "Empresa"
+}
+    */
+    public String crearProyecto(@RequestBody Proyecto proyecto) {
+        return authService.crearProyecto(proyecto);
+    }
+
+    @GetMapping("/proyectos/{idProyecto}")// Ejemplo de uso GET http://localhost:8083/proyectos/MW06EtzoylDFNPWOAFHq
+    public Proyecto obtenerProyectoPorId(@PathVariable String idProyecto) throws ExecutionException, InterruptedException {
+        return authService.obtenerProyectoPorId(idProyecto);
+    }
+
+    @PutMapping("/proyectos/{idProyecto}")
+    /* Ejemplo de uso PUT http://localhost:8083/proyectos/MW06EtzoylDFNPWOAFHq
+    {
+    "nombre": "Proyecto Actualizado",
+    "descripcion": "Descripción actualizada",
+    "estado": "Finalizado",
+    "prioridad": "Alta",
+    "fechaCreacion": "2025-01-23T12:00:00",
+    "fechaVencimiento": "2025-02-15T12:00:00",
+    "etiqueta": "Importante",
+    "empleadoId": "1",
+    "kanban": true,
+    "precio": "15",
+    "empresa": "Empresa"
+    }
+    */
+    public String actualizarProyecto(@PathVariable String idProyecto, @RequestBody Proyecto proyectoActualizado) {
+        return authService.actualizarProyecto(idProyecto, proyectoActualizado);
+    }
+
+    @DeleteMapping("/proyectos/{idProyecto}")// Ejemplo de uso DELETE http://localhost:8083/proyectos/MW06EtzoylDFNPWOAFHq
+    public String eliminarProyecto(@PathVariable String idProyecto) {
+        return authService.eliminarProyecto(idProyecto);
+    }
+
+    @GetMapping("/proyectos")// Ejemplo de uso GET http://localhost:8083/proyectos
+    public List<Proyecto> obtenerTodosLosProyectos() throws ExecutionException, InterruptedException {
+        return authService.obtenerTodosLosProyectos();
     }
 
 }
