@@ -119,25 +119,25 @@ function SidebarComponent() {
             >
                 <MenuItem
                     id={SLUGS.ideas}
-                    title='Sub Item 1'
+                    title='Añadir Idea'
                     level={2}
                     icon={IconKanban}
                     onClick={() => onClick(SLUGS.ideas)}
                 />
                 <MenuItem
                     id={SLUGS.ideasTwo}
-                    title='Sub Item 2'
+                    title='Listado'
                     level={2}
                     icon={IconContacts}
                     onClick={() => onClick(SLUGS.ideasTwo)}
                 />
-                <MenuItem
+                {/* <MenuItem
                     id={SLUGS.ideasThree}
                     title='Sub Item 3'
                     level={2}
                     icon={IconNotes}
                     onClick={() => onClick(SLUGS.ideasThree)}
-                />
+                /> */}
             </MenuItem>
             <MenuItem
                 id={SLUGS.contactos}

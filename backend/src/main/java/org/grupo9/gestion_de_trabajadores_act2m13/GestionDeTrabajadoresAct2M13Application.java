@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Objects;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +20,7 @@ public class GestionDeTrabajadoresAct2M13Application {
 	public static void main(String[] args) throws FileNotFoundException {
 		ClassLoader classLoader = GestionDeTrabajadoresAct2M13Application.class.getClassLoader();
 
-		File file = new File("C:\\Users\\Mario\\Downloads\\Nueva carpeta (2)\\Gestion_de_trabajadores_ACT2M13-main\\Gestion_de_trabajadores_ACT2M13-main\\src\\main\\resources\\serviceAccountKey.json");
+		File file = new File(Objects.requireNonNull(classLoader.getResource("serviceAccountKey.json")).getFile());
 		FileInputStream serviceAccount = new FileInputStream(file.getAbsolutePath());
 
 
