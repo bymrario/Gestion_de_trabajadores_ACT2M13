@@ -25,6 +25,7 @@ import com.google.firebase.cloud.FirestoreClient;
 @Service
 public class AuthService {
 
+    //CLIENTES
     public String registrarNuevoCliente(Cliente cliente) {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         cliente.setRol("cliente");
@@ -68,6 +69,50 @@ public class AuthService {
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
         return !querySnapshot.get().isEmpty();
     }
+
+    public List<Cliente> obtenerTodosLosClientes() throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future = dbFirestore.collection("clientes").get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        List<Cliente> clientes = new ArrayList<>();
+
+        for (QueryDocumentSnapshot document : documents) {
+            clientes.add(document.toObject(Cliente.class));
+        }
+        return clientes;
+    }
+
+    public Cliente obtenerDatosCliente(String id) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        try {
+            DocumentReference docRef = dbFirestore.collection("clientes").document(id);
+            ApiFuture<DocumentSnapshot> future = docRef.get();
+            DocumentSnapshot document = future.get();
+
+            if (document.exists()) {
+                return document.toObject(Cliente.class);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String eliminarDatosCliente(String id) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        try {
+            ApiFuture<WriteResult> writeResult = dbFirestore.collection("clientes").document(id).delete();
+            return "Cliente con ID " + id + " ha sido eliminado exitosamente.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error al eliminar cliente: " + e.getMessage();
+        }
+    }
+
+
+    //USUARIO APP
 
     public String loginEmpleado(String correo, String contrasena) {
         Firestore dbFirestore = FirestoreClient.getFirestore();
@@ -123,47 +168,10 @@ public class AuthService {
         }
     }
 
-    public List<Cliente> obtenerTodosLosClientes() throws ExecutionException, InterruptedException {
-        Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<QuerySnapshot> future = dbFirestore.collection("clientes").get();
-        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-        List<Cliente> clientes = new ArrayList<>();
 
-        for (QueryDocumentSnapshot document : documents) {
-            clientes.add(document.toObject(Cliente.class));
-        }
-        return clientes;
-    }
 
-    public Cliente obtenerDatosCliente(String id) throws ExecutionException, InterruptedException {
-        Firestore dbFirestore = FirestoreClient.getFirestore();
-        try {
-            DocumentReference docRef = dbFirestore.collection("clientes").document(id);
-            ApiFuture<DocumentSnapshot> future = docRef.get();
-            DocumentSnapshot document = future.get();
 
-            if (document.exists()) {
-                return document.toObject(Cliente.class);
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public String eliminarDatosCliente(String id) throws ExecutionException, InterruptedException {
-        Firestore dbFirestore = FirestoreClient.getFirestore();
-        try {
-            ApiFuture<WriteResult> writeResult = dbFirestore.collection("clientes").document(id).delete();
-            return "Cliente con ID " + id + " ha sido eliminado exitosamente.";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Error al eliminar cliente: " + e.getMessage();
-        }
-    }
-
+    //TAREAS
     public String agregarTarea(Tarea tarea) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference docRef = db.collection("tareas").document(); // Genera un ID único automáticamente

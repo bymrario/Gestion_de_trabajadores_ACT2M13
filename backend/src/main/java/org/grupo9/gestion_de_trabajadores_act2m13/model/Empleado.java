@@ -13,7 +13,9 @@ public class Empleado {
     private String telefono;
     private String direccion;
     private Date fechaNacimiento;
-    private String contrasena;      
+    private String contrasena;
+    private String pais;
+    private String username;
     private List<String> notas;// Notas personales del freelancer
     private List<Cliente> listaClientes;
     private List<String> especialidades; 
@@ -28,7 +30,7 @@ public class Empleado {
     public Empleado(String id, String nombre, String apellidos, String dniNIE, String correo,
                     String telefono, String direccion, Date fechaNacimiento, String contrasena,
                     List<String> notas, List<Cliente> listaClientes, List<String> especialidades,
-                    String portafolio) {
+                    String portafolio, String pais, String username) {
 
         this.id = id;  // Ahora es String
         this.nombre = nombre;
@@ -43,6 +45,8 @@ public class Empleado {
         this.listaClientes = listaClientes;
         this.especialidades = especialidades;
         this.portafolio = portafolio;
+        this.pais = pais;
+        this.username = username;
     }
 
     // Getters y setters
@@ -148,5 +152,21 @@ public class Empleado {
 
     public void setPortafolio(String portafolio) {
         this.portafolio = portafolio;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

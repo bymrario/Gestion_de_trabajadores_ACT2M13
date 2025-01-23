@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Column, Row } from 'simple-flexbox';
 import { createUseStyles } from 'react-jss';
 import MiniCardComponent from 'components/cards/MiniCardComponent';
 import LastProyectsComponent from './LastProyects';
 import PendignProyectsComponent from './PendingProyects';
 import TasksComponent from './TasksComponent';
+import api from 'services/api';
 
 const useStyles = createUseStyles({
     cardsContainer: {
@@ -47,6 +48,60 @@ const useStyles = createUseStyles({
 
 function DashboardComponent() {
     const classes = useStyles();
+    const [clientesCount, setClientesCount] = useState(0);
+    const [contactosCount, setContactosCount] = useState(0);
+    const [proyectosActivosCount, setProyectosActivosCount] = useState(0);
+    const [proyectosFinalizadosCount, setProyectosFinalizadosCount] = useState(0);
+
+    useEffect(() => {
+        // Función para obtener los clientes
+        const fetchClientes = async () => {
+            try {
+                const response = await api.get('/clientes');
+                setClientesCount(response.data.length); 
+            } catch (error) {
+                console.error('Error al obtener los clientes:', error);
+            }
+        };
+
+        // Función para obtener los contactos
+        const fetchContactos = async () => {
+            try {
+                const response = await api.get('/contactos');
+                setContactosCount(response.data.length); 
+            } catch (error) {
+                console.error('Error al obtener los contactos:', error);
+            }
+        };
+
+        // Función para obtener proyectos activos
+        const fetchProyectosActivos = async () => {
+            try {
+                const response = await api.get('/proyectos-activos');
+                setProyectosActivosCount(response.data);
+            } catch (error) {
+                console.error('Error al obtener los proyectos activos:', error);
+            }
+        };
+
+        // Función para obtener proyectos finalizados
+        const fetchProyectosFinalizados = async () => {
+            try {
+                const response = await api.get('/proyectos-finalizados');
+                setProyectosFinalizadosCount(response.data); 
+            } catch (error) {
+                console.error('Error al obtener los proyectos finalizados:', error);
+            }
+        };
+
+        // Llamamos a todas las funciones
+        fetchClientes();
+        fetchContactos();
+        fetchProyectosActivos();
+        fetchProyectosFinalizados();
+    }, []);
+
+
     return (
         <Column>
             <Row
@@ -66,12 +121,12 @@ function DashboardComponent() {
                     <MiniCardComponent
                         className={classes.miniCardContainer}
                         title='Proyectos Activos'
-                        value='12'
+                        value={proyectosActivosCount}
                     />
                     <MiniCardComponent
                         className={classes.miniCardContainer}
                         title='Clientes'
-                        value='16'
+                        value={clientesCount}
                     />
                 </Row>
                 <Row
@@ -84,12 +139,12 @@ function DashboardComponent() {
                     <MiniCardComponent
                         className={classes.miniCardContainer}
                         title='Contactos'
-                        value='43'
+                        value={contactosCount}
                     />
                     <MiniCardComponent
                         className={classes.miniCardContainer}
                         title='Proyectos Finalizados'
-                        value='64'
+                        value={proyectosFinalizadosCount}
                     />
                 </Row>
             </Row>

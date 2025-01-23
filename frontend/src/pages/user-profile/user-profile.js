@@ -1,6 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import api from 'services/api';
 
 export default function ProfilePage() {
+
+  const [empleado, setEmpleado] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // ID del empleado, ajusta según sea necesario
+    const empleadoId = '1';
+
+    const fetchEmpleado = async () => {
+      try {
+        const response = await api.get('/empleado', {
+          params: { id: empleadoId },
+        });
+        setEmpleado(response.data);
+      } catch (err) {
+        console.error('Error fetching empleado:', err);
+        setError('Hubo un error al cargar los datos del empleado.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEmpleado();
+  }, []);
+
+  if (loading) {
+    return <p>Cargando datos...</p>;
+  }
+
+  if (error) {
+    return <p style={{ color: 'red' }}>{error}</p>;
+  }
+
+  if (!empleado) {
+    return <p>No se encontraron datos para este empleado.</p>;
+  }
+
+
   return (
     <section style={{ backgroundColor: '#f5f5f5', padding: '20px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -23,9 +63,9 @@ export default function ProfilePage() {
                 alt="Profile"
                 style={{ borderRadius: '50%', width: '150px', marginBottom: '10px' }}
               />
-              <h2 style={{ margin: '10px 0' }}>John Freelancer</h2>
-              <p style={{ color: '#6c757d' }}>Full Stack Developer</p>
-              <p style={{ color: '#6c757d' }}>España</p>
+              <h2 style={{ margin: '10px 0' }}>{empleado.nombre} {empleado.apellidos}</h2>
+              <p style={{ color: '#6c757d' }}>{empleado.portafolio || 'Sin especialidades'}</p>
+              <p style={{ color: '#6c757d' }}>{empleado.pais}</p>
             </div>
           </div>
         </div>
@@ -34,10 +74,9 @@ export default function ProfilePage() {
           {/* Contact */}
           <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '10px' }}>
             <h3 style={{ marginBottom: '15px' }}>Información de Contacto</h3>
-            <p><strong>Email:</strong> johne@freelancer.com</p>
-            <p><strong>Phone:</strong> (34) 643667788</p>
-            <p><strong>Mobile:</strong> (34) 643667788</p>
-            <p><strong>Address:</strong> España</p>
+            <p><strong>Email:</strong> {empleado.correo}</p>
+            <p><strong>Teléfono:</strong> {empleado.telefono}</p>
+            <p><strong>Dirección:</strong> {empleado.direccion}</p>
           </div>
 
           {/* Redes */}
@@ -60,10 +99,9 @@ export default function ProfilePage() {
           <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '10px' }}>
             <h3 style={{ marginBottom: '15px' }}>Habilidades</h3>
             <ul style={{ listStyle: 'none', padding: '0', margin: '0' }}>
-              <li>JavaScript</li>
-              <li>React</li>
-              <li>Node.js</li>
-              <li>CSS</li>
+              {empleado.especialidades?.map((skill, index) => (
+                <li key={index}>{skill}</li>
+              )) || <p>Sin habilidades registradas</p>}
             </ul>
           </div>
 

@@ -80,12 +80,12 @@ function SidebarComponent() {
             <MenuItem
                 id={SLUGS.kanban}
                 items={[SLUGS.kanbanTwo, SLUGS.kanbanThree]}
-                title='Kanban'
+                title='Tareas'
                 icon={IconOverview}
             >
                 <MenuItem
                     id={SLUGS.kanban}
-                    title='Tablero'
+                    title='Kanban'
                     level={2}
                     icon={IconKanban}
                     onClick={() => onClick(SLUGS.kanban)}

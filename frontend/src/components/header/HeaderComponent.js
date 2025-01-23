@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { string } from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { Row } from 'simple-flexbox';
@@ -9,6 +9,7 @@ import { IconBell, IconSearch } from 'assets/icons';
 import DropdownComponent from 'components/dropdown';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import api from 'services/api';
 
 const useStyles = createUseStyles((theme) => ({
     avatar: {
@@ -66,6 +67,43 @@ function HeaderComponent() {
     const { currentItem } = useContext(SidebarContext);
     const theme = useTheme();
     const classes = useStyles({ theme });
+
+    const [empleado, setEmpleado] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        // ID del empleado, ajusta según sea necesario
+        const empleadoId = '1';
+
+        const fetchEmpleado = async () => {
+        try {
+            const response = await api.get('/empleado', {
+            params: { id: empleadoId },
+            });
+            setEmpleado(response.data);
+        } catch (err) {
+            console.error('Error fetching empleado:', err);
+            setError('Hubo un error al cargar los datos del empleado.');
+        } finally {
+            setLoading(false);
+        }
+        };
+
+        fetchEmpleado();
+    }, []);
+
+    if (loading) {
+        return <p>Cargando datos...</p>;
+    }
+
+    if (error) {
+        return <p style={{ color: 'red' }}>{error}</p>;
+    }
+
+    if (!empleado) {
+        return <p>No se encontraron datos para este empleado.</p>;
+    }
 
     let title;
     switch (true) {
@@ -165,7 +203,7 @@ function HeaderComponent() {
                 <DropdownComponent
                     label={
                         <>
-                            <span className={classes.name}>Usuario 1</span>
+                            <span className={classes.name}>{empleado.username}</span>
                             <img
                                 src='https://www.shutterstock.com/image-vector/young-smiling-man-avatar-3d-600nw-2124054758.jpg'
                                 alt='avatar'

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Row } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
 import { IconCheckboxOn, IconCheckboxOff } from '../../assets/icons';
 import CardComponent from 'components/cards/CardComponent';
+import CreateTaskModal from "components/tareas/CreateTask";
+import api from 'services/api';
 
 const useStyles = createUseStyles((theme) => ({
     addButton: {
@@ -36,53 +38,74 @@ const useStyles = createUseStyles((theme) => ({
     }
 }));
 
+
 const TAGS = {
-    URGENT: { text: 'URGENTE', backgroundColor: '#FEC400', color: '#FFFFFF' },
-    NEW: { text: 'NUEVA', backgroundColor: '#29CC97', color: '#FFFFFF' },
-    DEFAULT: { text: 'PENDIENTE', backgroundColor: '#F0F1F7', color: '#9FA2B4' }
+    ALTA: { text: 'ALTA', backgroundColor: '#F44336', color: '#FFFFFF' },  
+    MEDIA: { text: 'MEDIA', backgroundColor: '#FF9800', color: '#FFFFFF' }, 
+    BAJA: { text: 'BAJA', backgroundColor: '#4CAF50', color: '#FFFFFF' }  
 };
 
 function TasksComponent(props) {
+    const [tasks, setTasks] = useState([]); 
+    const [loading, setLoading] = useState(true); 
+    const [error, setError] = useState(null);
+    const [showCreateTaskModal, setShowCreateTaskModal] = useState(false);  
+    const [newTaskData, setNewTaskData] = useState(null); 
     const theme = useTheme();
     const classes = useStyles({ theme });
-    const [items, setItems] = useState([
-        { title: 'Tarea 1', checked: false, tag: TAGS.URGENT },
-        {
-            title: 'Tarea 2',
-            checked: false,
-            tag: TAGS.NEW
-        },
-        { title: 'Tarea 3', checked: true, tag: TAGS.DEFAULT }
-    ]);
+
+    useEffect(() => {
+        const fetchTasks = async () => {
+            try {
+                const response = await api.get("/tareas", {
+                    params: { empleadoId: 1 }
+                });
+                setTasks(response.data); // Guarda las tareas en el estado
+            } catch (error) {
+                console.error("Error al obtener las tareas:", error);
+                setError("Error al cargar las tareas");
+            } finally {
+                setLoading(false); // Finaliza el estado de carga
+            }
+        };
+    
+        fetchTasks();
+      }, []);
 
     function onCheckboxClick(index) {
-        setItems((prev) => {
+        setTasks((prev) => {
             const newItems = [...prev];
             newItems[index].checked = newItems[index].checked ? false : true;
             return newItems;
         });
     }
-    function getNextTag(current = 'URGENT') {
-        const tagLabels = ['URGENT', 'NEW', 'DEFAULT'];
+
+    function getNextTag(current = 'ALTA') {
+        const tagLabels = ['ALTA', 'MEDIA', 'BAJA'];
         const tagIndex = (tagLabels.indexOf(current) + 1) % 3;
         return TAGS[tagLabels[tagIndex]];
     }
 
+
     function onTagClick(index) {
-        setItems((prev) => {
+        setTasks((prev) => {
             const newItems = [...prev];
-            newItems[index].tag = getNextTag(newItems[index].tag.text);
+            const currentPriority = newItems[index].prioridad || 'ALTA';  // Asumimos 'ALTA' por defecto
+            newItems[index].prioridad = getNextTag(currentPriority).text;
+            newItems[index].tag = getNextTag(currentPriority);
             return newItems;
         });
     }
 
+
     function onAddButtonClick() {
-        setItems((prev) => {
+        setTasks((prev) => {
             const newItems = [...prev];
             newItems.push({
-                title: `Tarea ${newItems.length + 1}`,
+                titulo: `Tarea ${newItems.length + 1}`,
                 checked: false,
-                tag: getNextTag()
+                prioridad: 'ALTA',  // Inicia con 'ALTA'
+                tag: TAGS['ALTA']
             });
             return newItems;
         });
@@ -101,50 +124,75 @@ function TasksComponent(props) {
         );
     }
 
+    const handleCreateTask = async (taskData) => {
+        try {
+            const response = await api.post("/tareas", taskData); // Enviar tarea al backend
+            setTasks((prevTasks) => [...prevTasks, { ...taskData, id: response.data.id }]); // Añadir tarea a la lista
+            setShowCreateTaskModal(false);  // Cerrar modal
+        } catch (error) {
+            console.error("Error al crear la tarea:", error);
+            setError("Error al crear la tarea");
+        }
+    };
+
+    const handleOpenModal = () => {
+        setShowCreateTaskModal(true);  // Abrir el modal
+    };
+
+    const handleCloseModal = () => {
+        setShowCreateTaskModal(false);  // Cerrar el modal
+    };
+
+    if (loading) return <div>Cargando tareas...</div>;
+    if (error) return <div>{error}</div>;
+
     return (
         <CardComponent
             containerStyles={props.containerStyles}
-            title='Tareas'
-            link='Ver todas'
-            subtitle='Hoy'
+            title="Tareas"
+            link="Ver todas"
+            subtitle="Hoy"
             items={[
-                <Row horizontal='space-between' vertical='center'>
-                    <span className={[classes.itemTitle, classes.greyTitle].join(' ')}>
+                <Row horizontal="space-between" vertical="center">
+                    <span className={[classes.itemTitle, classes.greyTitle].join(" ")}>
                         Crear nueva tarea
                     </span>
-                    {renderAddButton()}
+                    {renderAddButton(handleOpenModal)} 
                 </Row>,
-                ...items.map((item, index) => (
+                ...tasks.map((task, index) => (
                     <TaskComponent
+                        key={index}
                         classes={classes}
                         index={index}
-                        item={item}
+                        item={task} 
                         onCheckboxClick={onCheckboxClick}
                         onTagClick={onTagClick}
                     />
-                ))
+                )),
             ]}
         />
     );
 }
 
 function TaskComponent({ classes, index, item = {}, onCheckboxClick, onTagClick }) {
-    const { tag = {} } = item;
+    const prioridad = (item.prioridad || '').trim().toUpperCase();  
+    const tag = TAGS[prioridad] || TAGS['ALTA'];  // Usamos 'ALTA' como valor por defecto si no se encuentra
+
     return (
         <Row horizontal='space-between' vertical='center'>
             <Row>
                 <div className={classes.checkboxWrapper} onClick={() => onCheckboxClick(index)}>
                     {item.checked ? <IconCheckboxOn /> : <IconCheckboxOff />}
                 </div>
-                <span className={classes.itemTitle}>{item.title}</span>
+                <span className={classes.itemTitle}>{item.titulo}</span> {/* Nombre de la tarea */}
             </Row>
             <TagComponent
-                backgroundColor={tag.backgroundColor}
+                backgroundColor={tag.backgroundColor} 
                 classes={classes}
-                color={tag.color}
+                color={tag.color}  
                 index={index}
                 onClick={onTagClick}
-                text={tag.text}
+                text={tag.text} 
             />
         </Row>
     );
