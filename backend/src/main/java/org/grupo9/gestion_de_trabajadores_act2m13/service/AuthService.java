@@ -216,7 +216,8 @@ public class AuthService {
 
     
     // FACTURACIÓN
-    // Crear una nueva factura
+
+    //Crear una nueva factura
     public String crearFactura(Factura factura) {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         try {
@@ -277,7 +278,7 @@ public class AuthService {
         }
     }
 
-    // Obtener todas las facturas
+    // Obtener todas las facturas 
     public List<Factura> obtenerTodasLasFacturas() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<QuerySnapshot> future = dbFirestore.collection("facturas").get();
