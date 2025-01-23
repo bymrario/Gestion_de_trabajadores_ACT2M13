@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Cliente;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Empleado;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Factura;
+import org.grupo9.gestion_de_trabajadores_act2m13.model.Notas;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Proyecto;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Tarea;
 import org.grupo9.gestion_de_trabajadores_act2m13.service.AuthService;
@@ -231,6 +232,45 @@ public class AuthController {
     @GetMapping("/proyectos")// Ejemplo de uso GET http://localhost:8083/proyectos
     public List<Proyecto> obtenerTodosLosProyectos() throws ExecutionException, InterruptedException {
         return authService.obtenerTodosLosProyectos();
+    }
+
+
+     // Endpoints para Notas
+    @PostMapping("/notas")
+    /* Ejemplo de uso POST http://localhost:8083/notas
+    {
+      "titulo": "Hola",
+      "contenido": "hola"
+    }
+    */
+    public String crearNota(@RequestBody Notas nota) {
+        return authService.crearNota(nota);
+    }
+
+    @GetMapping("/notas/{idNota}")// Ejemplo de uso GET http://localhost:8083/notas/MW06EtzoylDFNPWOAFHq
+    public Notas obtenerNotaPorId(@PathVariable String idNota) throws ExecutionException, InterruptedException {
+        return authService.obtenerNotaPorId(idNota);
+    }
+
+    @PutMapping("/notas/{idNota}")
+    /* Ejemplo de uso PUT http://localhost:8083/notas/MW06EtzoylDFNPWOAFHq
+    {
+      "titulo": "Actualizado",
+      "contenido": "holax2"
+    }
+    */
+    public String actualizarNota(@PathVariable String idNota, @RequestBody Notas notaActualizada) {
+        return authService.actualizarNota(idNota, notaActualizada);
+    }
+
+    @DeleteMapping("/notas/{idNota}")// Ejemplo de uso DELETE http://localhost:8083/notas/MW06EtzoylDFNPWOAFHq
+    public String eliminarNota(@PathVariable String idNota) {
+        return authService.eliminarNota(idNota);
+    }
+
+    @GetMapping("/notas")// Ejemplo de uso GET http://localhost:8083/notas
+    public List<Notas> obtenerTodasLasNotas() throws ExecutionException, InterruptedException {
+        return authService.obtenerTodasLasNotas();
     }
 
 }
