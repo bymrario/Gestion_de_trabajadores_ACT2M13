@@ -12,7 +12,7 @@ public class Tarea {
     private Date fechaVencimiento;
     private String etiqueta;
     private String empleadoId;
-
+    private boolean kanban;
     // Constructor vacío
     public Tarea() {
         super();
@@ -20,7 +20,7 @@ public class Tarea {
 
     // Constructor completo
     public Tarea(String titulo, String descripcion, String estado, String prioridad,
-                 Date fechaCreacion, Date fechaVencimiento, String etiqueta, String empleadoId) {
+                 Date fechaCreacion, Date fechaVencimiento, String etiqueta, String empleadoId, boolean kanban) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.estado = estado;
@@ -29,6 +29,7 @@ public class Tarea {
         this.fechaVencimiento = fechaVencimiento;
         this.etiqueta = etiqueta;
         this.empleadoId = empleadoId;
+        this.kanban= kanban;
     }
 
     // Getters y Setters
@@ -95,5 +96,13 @@ public class Tarea {
     
     public void setEmpleadoId(String empleadoId) {
         this.empleadoId = empleadoId;
+    }
+
+    public boolean isKanban(){
+        return kanban;
+    }
+
+    public void setKanban(boolean kanban){
+        this.kanban = kanban;
     }
 }

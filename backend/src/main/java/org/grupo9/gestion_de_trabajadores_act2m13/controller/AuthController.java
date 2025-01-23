@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class    AuthController {
+public class AuthController {
 
     private final AuthService authService;
 
@@ -121,26 +121,56 @@ public class    AuthController {
     }
 
     @PostMapping("/facturas")
+    // Ejemplo de uso POST http://localhost:8083/facturas
+    //{
+    // "clienteId": "TQfq8Pr6lSpbiE8IPrSU",
+    // "items": [
+    // "Servicio de Consultoría",
+    //  100,
+    //  2
+    //],
+    // "total": 400,
+    // "impuesto": 40,
+    // "descuento": 20,
+    // "estado": "Pendiente",
+    // "fecha": "2025-01-22",
+    // "fechaVencimiento": "2025-02-01"
+    //}
     public String crearFactura(@RequestBody Factura factura) {
         return authService.crearFactura(factura);
     }
 
-    @GetMapping("/facturas/{idFactura}")
+    @GetMapping("/facturas/{idFactura}")// Ejemplo de uso GET http://localhost:8083/facturas/hFkuMfGuRPyEU7uyxkMX
     public Factura obtenerFacturaPorId(@PathVariable String idFactura) throws ExecutionException, InterruptedException {
         return authService.obtenerFacturaPorId(idFactura);
     }
 
     @PutMapping("/facturas/{idFactura}")
+    // Ejemplo de uso PUT http://localhost:8083/facturas/hFkuMfGuRPyEU7uyxkMX
+    //{
+    // "clienteId": "TQfq8Pr6lSpbiE8IPrSU",
+    // "items": [
+    // "SE HA ACTUALIZADO",
+    // 100,
+    // 2
+    //],
+    // "total": 400,
+    // "impuesto": 40,
+    // "descuento": 20,
+    // "estado": "ACABADO",
+    // "fecha": "2025-01-22",
+    // "fechaVencimiento": "2025-02-01"
+    //}
     public String actualizarFactura(@PathVariable String idFactura, @RequestBody Factura facturaActualizada) {
         return authService.actualizarFactura(idFactura, facturaActualizada);
     }
 
-    @DeleteMapping("/facturas/{idFactura}")
+    @DeleteMapping("/facturas/{idFactura}")// Ejemplo de uso DELETE http://localhost:8083/facturas/hFkuMfGuRPyEU7uyxkMX
     public String eliminarFactura(@PathVariable String idFactura) {
         return authService.eliminarFactura(idFactura);
     }
 
-    @GetMapping("/facturas")
+    @GetMapping("/facturas")//revisar
     public List<Factura> obtenerTodasLasFacturas() throws ExecutionException, InterruptedException {
         return authService.obtenerTodasLasFacturas();
     }
