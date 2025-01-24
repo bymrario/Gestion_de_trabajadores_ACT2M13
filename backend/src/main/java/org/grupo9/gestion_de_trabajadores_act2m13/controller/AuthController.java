@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Cliente;
+import org.grupo9.gestion_de_trabajadores_act2m13.model.Contacto;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Empleado;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Factura;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Notas;
@@ -28,7 +29,6 @@ public class AuthController {
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
-
 
     // Endpoints Cliente
     @PostMapping("/registrarCliente") // Ejemplo de uso POST http://localhost:8083/registrarCliente
@@ -57,9 +57,7 @@ public class AuthController {
         return authService.eliminarDatosCliente(id);
     }
 
-
     // Endpoints Empleado (Solo será uno)
-
     @PostMapping("/loginEmpleado") // Ejemplo de uso POST http://localhost:8083/loginEmpleado
     //{
     // "correo": "prueba@hola.com",
@@ -89,9 +87,7 @@ public class AuthController {
         return authService.actualizarDatosEmpleado(empleado);
     }
 
-
     // Endpoints tareas
-
     @PostMapping("/tareas")
     // Ejemplo JSON válido para agregar una tarea:
     // {
@@ -178,7 +174,6 @@ public class AuthController {
     }
 
     // Endpoints proyectos
-
     @PostMapping("/proyectos")
     /* Ejemplo de uso POST http://localhost:8083/proyectos
     {
@@ -194,7 +189,7 @@ public class AuthController {
     "precio": "1",
     "empresa": "Empresa"
 }
-    */
+     */
     public String crearProyecto(@RequestBody Proyecto proyecto) {
         return authService.crearProyecto(proyecto);
     }
@@ -219,7 +214,7 @@ public class AuthController {
     "precio": "15",
     "empresa": "Empresa"
     }
-    */
+     */
     public String actualizarProyecto(@PathVariable String idProyecto, @RequestBody Proyecto proyectoActualizado) {
         return authService.actualizarProyecto(idProyecto, proyectoActualizado);
     }
@@ -234,17 +229,14 @@ public class AuthController {
         return authService.obtenerTodosLosProyectos();
     }
 
-
-     // Endpoints para Notas
+    // Endpoints para Notas
     @PostMapping("/notas")
     /* Ejemplo de uso POST http://localhost:8083/notas
     {
       "titulo": "Hola",
       "contenido": "hola"
-      "categoria": "marketing"
-      "estado": "activa"
     }
-    */
+     */
     public String crearNota(@RequestBody Notas nota) {
         return authService.crearNota(nota);
     }
@@ -260,7 +252,7 @@ public class AuthController {
       "titulo": "Actualizado",
       "contenido": "holax2"
     }
-    */
+     */
     public String actualizarNota(@PathVariable String idNota, @RequestBody Notas notaActualizada) {
         return authService.actualizarNota(idNota, notaActualizada);
     }
@@ -273,6 +265,50 @@ public class AuthController {
     @GetMapping("/notas")// Ejemplo de uso GET http://localhost:8083/notas
     public List<Notas> obtenerTodasLasNotas() throws ExecutionException, InterruptedException {
         return authService.obtenerTodasLasNotas();
+    }
+
+
+    // Endpoints para Contactos
+    
+    @PostMapping("/contactos")
+    /* Ejemplo de uso POST http://localhost:8083/contactos
+    {
+       "nombreContacto": "Mauricio",
+        "correo": "mauricio@mauricio.com",
+        "rol": "Cliente",
+        "activo": true
+    }
+    */
+    public String crearContacto(@RequestBody Contacto contacto) {
+        return authService.crearContacto(contacto);
+    }
+
+    @GetMapping("/contactos/{idContacto}")// Ejemplo de uso GET http://localhost:8083/contactos/MW06EtzoylDFNPWOAFHq
+    public Contacto obtenerContactoPorId(@PathVariable String idContacto) throws ExecutionException, InterruptedException {
+        return authService.obtenerContactoPorId(idContacto);
+    }
+
+    @PutMapping("/contactos/{idContacto}")
+    /* Ejemplo de uso PUT http://localhost:8083/contactos/MW06EtzoylDFNPWOAFHq
+    {
+        "nombreContacto": "Ana Actualizado",
+        "correo": "ana@ana.com",
+        "rol": "Cliente",
+        "activo": false
+    }
+     */
+    public String actualizarContacto(@PathVariable String idContacto, @RequestBody Contacto contactoActualizado) {
+        return authService.actualizarContacto(idContacto, contactoActualizado);
+    }
+
+    @DeleteMapping("/contactos/{idContacto}")// Ejemplo de uso DELETE http://localhost:8083/contactos/MW06EtzoylDFNPWOAFHq
+    public String eliminarContacto(@PathVariable String idContacto) {
+        return authService.eliminarContacto(idContacto);
+    }
+
+    @GetMapping("/contactos")// Ejemplo de uso GET http://localhost:8083/contactos
+    public List<Contacto> obtenerTodosLosContactos() throws ExecutionException, InterruptedException {
+        return authService.obtenerTodosLosContactos();
     }
 
 }

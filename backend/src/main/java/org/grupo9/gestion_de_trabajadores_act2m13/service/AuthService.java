@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Cliente;
+import org.grupo9.gestion_de_trabajadores_act2m13.model.Contacto;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Empleado;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Factura;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Notas;
@@ -442,5 +443,79 @@ public class AuthService {
         }
         return notas;
     }
-       
+
+    // Contactos
+    // Crear un nuevo contacto
+    public String crearContacto(Contacto contacto) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        try {
+            DocumentReference docRef = dbFirestore.collection("contactos").document();
+            contacto.setId(docRef.getId());
+            ApiFuture<WriteResult> future = docRef.set(contacto);
+            return "Contacto creado con éxito. ID: " + contacto.getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error al crear el contacto: " + e.getMessage();
+        }
+    }
+
+    // Obtener un contacto por ID
+    public Contacto obtenerContactoPorId(String idContacto) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference docRef = dbFirestore.collection("contactos").document(idContacto);
+        ApiFuture<DocumentSnapshot> future = docRef.get();
+        DocumentSnapshot document = future.get();
+
+        if (document.exists()) {
+            return document.toObject(Contacto.class);
+        } else {
+            return null; 
+        }
+    }
+
+    // Actualizar un contacto existente
+    public String actualizarContacto(String idContacto, Contacto contactoActualizado) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        try {
+            DocumentReference docRef = dbFirestore.collection("contactos").document(idContacto);
+            ApiFuture<DocumentSnapshot> future = docRef.get();
+            DocumentSnapshot document = future.get();
+
+            if (document.exists()) {
+                docRef.set(contactoActualizado);
+                return "Contacto actualizado con éxito. ID: " + idContacto;
+            } else {
+                return "Error: No se encontró ningún contacto con el ID proporcionado.";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error al actualizar el contacto: " + e.getMessage();
+        }
+    }
+
+    // Eliminar un contacto por ID
+    public String eliminarContacto(String idContacto) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        try {
+            DocumentReference docRef = dbFirestore.collection("contactos").document(idContacto);
+            ApiFuture<WriteResult> writeResult = docRef.delete();
+            return "Contacto eliminado con éxito. ID: " + idContacto;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error al eliminar el contacto: " + e.getMessage();
+        }
+    }
+
+    // Obtener todos los contactos
+    public List<Contacto> obtenerTodosLosContactos() throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future = dbFirestore.collection("contactos").get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        List<Contacto> contactos = new ArrayList<>();
+
+        for (QueryDocumentSnapshot document : documents) {
+            contactos.add(document.toObject(Contacto.class));
+        }
+        return contactos;
+    }
 }
