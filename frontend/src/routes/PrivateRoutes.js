@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import SLUGS from 'resources/slugs';
 import LoadingComponent from 'components/loading';
 import NotesComponent from 'components/notes/NotesComponent';
-import KanbanPage from 'pages/kanban/KanbanPage';
+import KanbanPage from 'pages/tareas/KanbanPage';
 import ProfilePage from 'pages/user-profile/user-profile';
 import Settings from 'pages/settings/settings';
 import Clients from 'pages/clients/Clientes';
@@ -12,7 +12,8 @@ import Facturacion from 'pages/facturacion/Facturacion';
 import Ideas from 'pages/ideas/Ideas';
 import IdeasNewForm from 'pages/ideas/IdeasNewForm';
 import Proyects from 'pages/proyectos/Proyects';
-import ListTasksComponent from 'pages/kanban/ListPage';
+import ListTasksComponent from 'pages/tareas/ListPage';
+import TareasNewForm from 'pages/tareas/TareasNewForm';
 
 const DashboardComponent = lazy(() => import('./dashboard'));
 
@@ -22,7 +23,7 @@ function PrivateRoutes() {
             <Switch>
                 <Route exact path={SLUGS.dashboard} component={DashboardComponent} />
                 <Route exact path={SLUGS.kanbanTwo} component={ListTasksComponent} />
-                {/* <Route exact path={SLUGS.kanbanThree} render={() => <div>KanbanThree</div>} /> */}
+                <Route exact path={SLUGS.kanbanThree} component={TareasNewForm} />
                 <Route exact path={SLUGS.kanban} component={KanbanPage} />
                 <Route exact path={SLUGS.proyectos} component={Proyects} />
                 <Route exact path={SLUGS.ideasTwo} component={Ideas} />

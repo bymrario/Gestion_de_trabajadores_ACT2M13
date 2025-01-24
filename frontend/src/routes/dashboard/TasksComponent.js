@@ -115,14 +115,12 @@ function TasksComponent(props) {
 
     function renderAddButton() {
         return (
-            <Row
-                horizontal='center'
-                vertical='center'
-                className={[classes.tagStyles, classes.addButton].join(' ')}
-                onClick={onAddButtonClick}
+            <Link
+                to={SLUGS.kanbanThree} // Ruta a la página donde se creará la nueva tarea
+                className={[classes.tagStyles, classes.addButton].join(' ')} // Aplica las clases para el estilo
             >
                 +
-            </Row>
+            </Link>
         );
     }
 
@@ -157,7 +155,9 @@ function TasksComponent(props) {
             items={[
                 <Row horizontal="space-between" vertical="center">
                     <span className={[classes.itemTitle, classes.greyTitle].join(" ")}>
-                        Crear nueva tarea
+                        <Link to={SLUGS.kanbanThree} className={classes.linkButton}>
+                            Crear nueva tarea
+                        </Link>
                     </span>
                     {renderAddButton(handleOpenModal)} 
                 </Row>,

@@ -85,10 +85,10 @@ function SidebarComponent() {
             >
                 <MenuItem
                     id={SLUGS.kanban}
-                    title='Kanban'
+                    title='Añadir Tarea'
                     level={2}
                     icon={IconKanban}
-                    onClick={() => onClick(SLUGS.kanban)}
+                    onClick={() => onClick(SLUGS.kanbanThree)}
                 />
                 <MenuItem
                     id={SLUGS.kanbanTwo}
@@ -97,13 +97,13 @@ function SidebarComponent() {
                     icon={IconContacts}
                     onClick={() => onClick(SLUGS.kanbanTwo)}
                 />
-                {/* <MenuItem
+                <MenuItem
                     id={SLUGS.kanbanThree}
-                    title='Sub Item 3'
+                    title='Kanban'
                     level={2}
                     icon={IconNotes}
-                    onClick={() => onClick(SLUGS.kanbanThree)}
-                /> */}
+                    onClick={() => onClick(SLUGS.kanban)}
+                />
             </MenuItem>
             <MenuItem
                 id={SLUGS.proyectos}
