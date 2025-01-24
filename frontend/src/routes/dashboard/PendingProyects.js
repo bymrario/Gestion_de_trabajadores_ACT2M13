@@ -17,7 +17,11 @@ const useStyles = createUseStyles((theme) => ({
 function PendignProyectsComponent({ containerStyles }) {
     const theme = useTheme();
     const classes = useStyles({ theme });
+
+    
     const [proyectosPendientes, setProyectosPendientes] = useState([]);
+
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
