@@ -4,6 +4,8 @@ public class Notas {
     private String id;
     private String titulo;
     private String contenido;
+    private String categoria;
+    private String estado;
 
     // Constructor vacío
     public Notas() {
@@ -11,10 +13,12 @@ public class Notas {
     }
 
     // Constructor completo
-    public Notas(String id, String titulo, String contenido) {
+    public Notas(String id, String titulo, String contenido,String categoria,String estado) {
         this.id = id;
         this.titulo = titulo;
         this.contenido = contenido;
+        this.categoria = categoria;
+        this.estado = estado;
     }
 
     // Getters y Setters
@@ -41,4 +45,22 @@ public class Notas {
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+
 }

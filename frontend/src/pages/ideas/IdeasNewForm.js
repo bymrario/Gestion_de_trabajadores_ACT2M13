@@ -60,30 +60,53 @@ const useStyles = createUseStyles({
     },
 });
 
-function IdeasNewForm({ onSave }) {
+function IdeasNewForm() {
     const classes = useStyles();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [status, setStatus] = useState('Borrador'); // Estado de la idea
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
-    const handleSubmit = () => {
-        onSave({
-            id: Date.now(),
-            title,
-            description,
-            category,
-            status,
-            date: new Date().toISOString(),
-        });
-        setTitle('');
-        setDescription('');
-        setCategory('');
-        setStatus('Borrador');
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        setSuccess('');
+
+        const nuevaNota = {
+            titulo: title,
+            contenido: description,
+            categoria: category,
+            estado: status,
+        };
+
+        try {
+            const response = await fetch('http://localhost:8083/notas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(nuevaNota),
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al guardar la nota');
+            }
+
+            const result = await response.text(); 
+            setSuccess(result); 
+            setTitle('');
+            setDescription('');
+            setCategory('');
+            setStatus('Borrador');
+        } catch (error) {
+            setError('Error al guardar la nota: ' + error.message);
+        }
     };
 
     return (
-        <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className={classes.formContainer}>
+        <form onSubmit={handleSubmit} className={classes.formContainer}>
             <input
                 type="text"
                 placeholder="Título"
@@ -102,6 +125,7 @@ function IdeasNewForm({ onSave }) {
                 onChange={(e) => setCategory(e.target.value)}
                 className={classes.select}
             >
+                <option value="">Selecciona una categoría</option>
                 <option value="Marketing">Marketing</option>
                 <option value="Desarrollo">Desarrollo</option>
                 <option value="Otros">Otros</option>
@@ -116,6 +140,9 @@ function IdeasNewForm({ onSave }) {
                 <option value="Archivada">Archivada</option>
             </select>
             <button type="submit" className={classes.button}>Guardar Idea</button>
+
+            {success && <p style={{ color: 'green', marginTop: '10px' }}>{success}</p>}
+            {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
         </form>
     );
 }

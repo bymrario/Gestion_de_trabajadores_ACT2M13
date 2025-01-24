@@ -241,6 +241,8 @@ public class AuthController {
     {
       "titulo": "Hola",
       "contenido": "hola"
+      "categoria": "marketing"
+      "estado": "activa"
     }
     */
     public String crearNota(@RequestBody Notas nota) {
