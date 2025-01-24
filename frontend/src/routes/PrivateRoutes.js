@@ -12,6 +12,7 @@ import Facturacion from 'pages/facturacion/Facturacion';
 import Ideas from 'pages/ideas/Ideas';
 import IdeasNewForm from 'pages/ideas/IdeasNewForm';
 import Proyects from 'pages/proyectos/Proyects';
+import ListTasksComponent from 'pages/kanban/ListPage';
 
 const DashboardComponent = lazy(() => import('./dashboard'));
 
@@ -20,7 +21,7 @@ function PrivateRoutes() {
         <Suspense fallback={<LoadingComponent loading />}>
             <Switch>
                 <Route exact path={SLUGS.dashboard} component={DashboardComponent} />
-                <Route exact path={SLUGS.kanbanTwo} render={() => <div>Listado</div>} />
+                <Route exact path={SLUGS.kanbanTwo} component={ListTasksComponent} />
                 {/* <Route exact path={SLUGS.kanbanThree} render={() => <div>KanbanThree</div>} /> */}
                 <Route exact path={SLUGS.kanban} component={KanbanPage} />
                 <Route exact path={SLUGS.proyectos} component={Proyects} />

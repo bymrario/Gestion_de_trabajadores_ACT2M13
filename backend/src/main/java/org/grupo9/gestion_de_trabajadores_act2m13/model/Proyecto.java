@@ -11,7 +11,7 @@ public class Proyecto {
     private String etiqueta;
     private String empleadoId;
     private boolean kanban;
-    private String precio;
+    private Float precio;
     private String empresa;
     private double tiempoEmpleado;
     // Constructor vacío
@@ -21,7 +21,7 @@ public class Proyecto {
 
     // Constructor completo
     public Proyecto(String nombre, String descripcion, String estado, String prioridad,
-                 Date fechaCreacion, Date fechaVencimiento, String etiqueta, String empleadoId, boolean kanban, String precio, String empresa, double tiempoEmpleado) {
+                 Date fechaCreacion, Date fechaVencimiento, String etiqueta, String empleadoId, boolean kanban, Float precio, String empresa, double tiempoEmpleado) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.estado = estado;
@@ -110,11 +110,11 @@ public class Proyecto {
         this.kanban = kanban;
     }
 
-    public String getPrecio(){
+    public Float getPrecio(){
         return precio;
     }
 
-    public void setPrecio(String precio){
+    public void setPrecio(Float precio){
         this.precio = precio;
     }
 

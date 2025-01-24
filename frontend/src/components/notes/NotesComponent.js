@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createUseStyles, useTheme } from 'react-jss';
 import MiniCardComponent from 'components/cards/MiniCardComponent';
+import api from 'services/api';
 
 const useStyles = createUseStyles((theme) => ({
   container: {
@@ -62,6 +63,43 @@ const NotesComponent = () => {
   const [fontSize, setFontSize] = useState(16); 
   const [notes, setNotes] = useState([]); 
 
+  const [empleado, setEmpleado] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+      // ID del empleado, ajusta según sea necesario
+      const empleadoId = '1';
+
+      const fetchEmpleado = async () => {
+      try {
+          const response = await api.get('/empleado', {
+          params: { id: empleadoId },
+          });
+          setEmpleado(response.data);
+      } catch (err) {
+          console.error('Error obteniendo empleado:', err);
+          setError('Hubo un error al cargar los datos del empleado.');
+      } finally {
+          setLoading(false);
+      }
+      };
+
+      fetchEmpleado();
+  }, []);
+
+  if (loading) {
+      return <p>Cargando datos...</p>;
+  }
+
+  if (error) {
+      return <p style={{ color: 'red' }}>{error}</p>;
+  }
+
+  if (!empleado) {
+      return <p>No se encontraron datos para este empleado.</p>;
+  }
+
   // Event handlers
   const handleChange = (event) => {
     setText(event.target.value);
@@ -120,18 +158,22 @@ const NotesComponent = () => {
             placeholder="Escribe tu nota aquí..."
         />
         
-        <h3>Notas guardadas</h3>
-        
+        <h3>Notas del Empleado</h3>
+
         <div className={classes.notesContainer}>
-            {notes.map((note, index) => (
-            <MiniCardComponent 
-                key={index} 
-                title={`Nota ${index + 1}`} 
-                value={note} 
-            />
-            ))}
+          {empleado.notas.length === 0 ? (
+            <p>No hay notas guardadas.</p>
+          ) : (
+            empleado.notas.map((nota, index) => (
+              <MiniCardComponent
+                key={index}
+                title={`Nota ${index + 1}`}
+                value={nota}
+              />
+            ))
+          )}
         </div>
-    </div>
+      </div>
   );
 };
 

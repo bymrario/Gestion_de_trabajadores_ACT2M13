@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom'; // Para permitir la navegación a los detalles de un cliente
+import api from 'services/api';
 
 function ClientListComponent() {
     const [clients, setClients] = useState([]);
+    const [clientesCount, setClientesCount] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Hacemos la petición GET a la API para obtener la lista de clientes
-        axios.get('http://localhost:3000/api/clients')
-            .then(response => {
-                setClients(response.data); // Guardamos los datos de los clientes en el estado
-            })
-            .catch(error => {
+        // Función para obtener los clientes
+        const fetchClientes = async () => {
+            try {
+                const response = await api.get('/clientes');
+                setClientesCount(response.data.length); 
+            } catch (error) {
                 console.error('Error al obtener los clientes:', error);
-            });
+            }
+        };
+ 
+        fetchClientes();
     }, []);
+
+    // if (loading) return <div>Cargando proyectos...</div>;  
+    if (error) return <div>{error}</div>; 
 
     return (
         <div>

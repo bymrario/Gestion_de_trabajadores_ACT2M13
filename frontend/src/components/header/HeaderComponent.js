@@ -83,7 +83,7 @@ function HeaderComponent() {
             });
             setEmpleado(response.data);
         } catch (err) {
-            console.error('Error fetching empleado:', err);
+            console.error('Error obteniendo empleado:', err);
             setError('Hubo un error al cargar los datos del empleado.');
         } finally {
             setLoading(false);

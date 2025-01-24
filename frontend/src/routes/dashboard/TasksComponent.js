@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Row } from 'simple-flexbox';
+import { Link } from 'react-router-dom';
 import { createUseStyles, useTheme } from 'react-jss';
 import { IconCheckboxOn, IconCheckboxOff } from '../../assets/icons';
 import CardComponent from 'components/cards/CardComponent';
 import CreateTaskModal from "components/tareas/CreateTask";
 import api from 'services/api';
+import SLUGS from 'resources/slugs';
 
 const useStyles = createUseStyles((theme) => ({
     addButton: {
@@ -150,7 +152,7 @@ function TasksComponent(props) {
         <CardComponent
             containerStyles={props.containerStyles}
             title="Tareas"
-            link="Ver todas"
+            link={<Link to={SLUGS.kanbanTwo}>Ver todas</Link>}
             subtitle="Hoy"
             items={[
                 <Row horizontal="space-between" vertical="center">

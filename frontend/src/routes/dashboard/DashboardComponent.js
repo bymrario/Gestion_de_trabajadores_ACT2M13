@@ -52,6 +52,8 @@ function DashboardComponent() {
     const [contactosCount, setContactosCount] = useState(0);
     const [proyectosActivosCount, setProyectosActivosCount] = useState(0);
     const [proyectosFinalizadosCount, setProyectosFinalizadosCount] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         // Función para obtener los clientes
@@ -77,8 +79,8 @@ function DashboardComponent() {
         // Función para obtener proyectos activos
         const fetchProyectosActivos = async () => {
             try {
-                const response = await api.get('/proyectos-activos');
-                setProyectosActivosCount(response.data);
+                const response = await api.get('/proyectos');
+                setProyectosActivosCount(response.data.length);
             } catch (error) {
                 console.error('Error al obtener los proyectos activos:', error);
             }
@@ -87,8 +89,18 @@ function DashboardComponent() {
         // Función para obtener proyectos finalizados
         const fetchProyectosFinalizados = async () => {
             try {
-                const response = await api.get('/proyectos-finalizados');
-                setProyectosFinalizadosCount(response.data); 
+                const response = await api.get('/proyectos');
+                const proyectos = response.data;
+
+                // Filtramos los proyectos finalizados
+                const proyectosFinalizados = proyectos.filter(proyecto => {
+                    const fechaVencimiento = new Date(proyecto.fechaVencimiento); // Convertir a Date
+                    const fechaActual = new Date(); // Obtener la fecha actual
+
+                    return fechaVencimiento < fechaActual; // Verificamos si la fechaVencimiento es menor que la fecha actual
+                });
+
+                setProyectosFinalizadosCount(proyectosFinalizados.length); // Contamos los proyectos finalizados
             } catch (error) {
                 console.error('Error al obtener los proyectos finalizados:', error);
             }
@@ -101,6 +113,8 @@ function DashboardComponent() {
         fetchProyectosFinalizados();
     }, []);
 
+    // if (loading) return <div>Cargando proyectos...</div>;  
+    if (error) return <div>{error}</div>; 
 
     return (
         <Column>
