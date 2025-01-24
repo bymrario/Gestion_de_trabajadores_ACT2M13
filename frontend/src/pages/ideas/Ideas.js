@@ -89,7 +89,6 @@ const useStyles = createUseStyles({
             backgroundColor: '#93C572',
         },
     },
-    // Estilos para el botón fijo
     fixedButtonContainer: {
         position: 'fixed',
         top: '20px',
@@ -101,14 +100,13 @@ const useStyles = createUseStyles({
 
 function Ideas() {
     const classes = useStyles();
-    const [ideas, setIdeas] = useState([]); // Lista de ideas
-    const [isCreating, setIsCreating] = useState(false); // Controla si se está creando una nueva idea
-    const [filter, setFilter] = useState(''); // Filtro para el estado de las ideas
-    const [error, setError] = useState(''); // Manejo de errores
-    const [successMessage, setSuccessMessage] = useState(''); // Mensaje de éxito
+    const [ideas, setIdeas] = useState([]); 
+    const [isCreating, setIsCreating] = useState(false); 
+    const [filter, setFilter] = useState(''); 
+    const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
-        // Llamada inicial para obtener las ideas
         fetch('http://localhost:8083/notas')
             .then((response) => response.json())
             .then((data) => setIdeas(data))
@@ -127,7 +125,7 @@ function Ideas() {
             .then((data) => {
                 setSuccessMessage(`Nota creada con éxito. ID: ${data.id}`);
                 setIdeas([...ideas, data]); // Actualiza la lista con la nueva idea
-                setIsCreating(false); // Cierra el formulario
+                setIsCreating(false);
             })
             .catch((error) => {
                 setError('Error al crear la idea: ' + error.message);
