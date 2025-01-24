@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutionException;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Cliente;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Empleado;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Factura;
+import org.grupo9.gestion_de_trabajadores_act2m13.model.Notas;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Proyecto;
 import org.grupo9.gestion_de_trabajadores_act2m13.model.Tarea;
 import org.springframework.stereotype.Service;
@@ -100,7 +101,6 @@ public class AuthService {
     public Empleado obtenerDatosEmpleadoPorId(String empleadoId) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         
-        // Opción A: buscar por el campo "id" dentro del documento
         Query query = dbFirestore.collection("empleados").whereEqualTo("id", empleadoId);
         ApiFuture<QuerySnapshot> future = query.get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
@@ -167,7 +167,7 @@ public class AuthService {
 
     public String agregarTarea(Tarea tarea) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference docRef = db.collection("tareas").document(); // Genera un ID único automáticamente
+        DocumentReference docRef = db.collection("tareas").document();
         tarea.setFechaCreacion(new Date());
         ApiFuture<WriteResult> future = docRef.set(tarea);
         return "Tarea creada con éxito: " + docRef.getId(); // Devuelve el ID del documento
@@ -242,7 +242,7 @@ public class AuthService {
         if (document.exists()) {
             return document.toObject(Factura.class);
         } else {
-            return null; // Retorna null si no encuentra la factura
+            return null; 
         }
     }
 
@@ -255,7 +255,7 @@ public class AuthService {
             DocumentSnapshot document = future.get();
 
             if (document.exists()) {
-                docRef.set(facturaActualizada); // Sobrescribe el documento existente
+                docRef.set(facturaActualizada);
                 return "Factura actualizada con éxito. ID: " + idFactura;
             } else {
                 return "Error: No se encontró ninguna factura con el ID proporcionado.";
@@ -318,7 +318,7 @@ public class AuthService {
         if (document.exists()) {
             return document.toObject(Proyecto.class);
         } else {
-            return null; // Retorna null si no encuentra el proyecto
+            return null;
         }
     }
 
@@ -331,7 +331,7 @@ public class AuthService {
             DocumentSnapshot document = future.get();
 
             if (document.exists()) {
-                docRef.set(proyectoActualizado); // Sobrescribe el documento existente
+                docRef.set(proyectoActualizado); 
                 return "Proyecto actualizado con éxito. ID: " + idProyecto;
             } else {
                 return "Error: No se encontró ningún proyecto con el ID proporcionado.";
@@ -366,6 +366,81 @@ public class AuthService {
             proyectos.add(document.toObject(Proyecto.class));
         }
         return proyectos;
+    }
+
+    //Notas
+    // Crear una nueva nota
+    public String crearNota(Notas nota) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        try {
+            DocumentReference docRef = dbFirestore.collection("notas").document();
+            nota.setId(docRef.getId());
+            ApiFuture<WriteResult> future = docRef.set(nota);
+            return "Nota creada con éxito. ID: " + nota.getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error al crear la nota: " + e.getMessage();
+        }
+    }
+
+    // Obtener una nota por ID
+    public Notas obtenerNotaPorId(String idNota) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference docRef = dbFirestore.collection("notas").document(idNota);
+        ApiFuture<DocumentSnapshot> future = docRef.get();
+        DocumentSnapshot document = future.get();
+
+        if (document.exists()) {
+            return document.toObject(Notas.class);
+        } else {
+            return null;
+        }
+    }
+
+    // Actualizar una nota existente
+    public String actualizarNota(String idNota, Notas notaActualizada) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        try {
+            DocumentReference docRef = dbFirestore.collection("notas").document(idNota);
+            ApiFuture<DocumentSnapshot> future = docRef.get();
+            DocumentSnapshot document = future.get();
+
+            if (document.exists()) {
+                docRef.set(notaActualizada); 
+                return "Nota actualizada con éxito. ID: " + idNota;
+            } else {
+                return "Error: No se encontró ninguna nota con el ID proporcionado.";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error al actualizar la nota: " + e.getMessage();
+        }
+    }
+
+    // Eliminar una nota por ID
+    public String eliminarNota(String idNota) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        try {
+            DocumentReference docRef = dbFirestore.collection("notas").document(idNota);
+            ApiFuture<WriteResult> writeResult = docRef.delete();
+            return "Nota eliminada con éxito. ID: " + idNota;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error al eliminar la nota: " + e.getMessage();
+        }
+    }
+
+    // Obtener todas las notas
+    public List<Notas> obtenerTodasLasNotas() throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future = dbFirestore.collection("notas").get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        List<Notas> notas = new ArrayList<>();
+
+        for (QueryDocumentSnapshot document : documents) {
+            notas.add(document.toObject(Notas.class));
+        }
+        return notas;
     }
        
 }
