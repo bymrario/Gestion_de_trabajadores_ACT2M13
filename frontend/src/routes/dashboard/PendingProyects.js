@@ -3,6 +3,8 @@ import { Row } from 'simple-flexbox';
 import { createUseStyles, useTheme } from 'react-jss';
 import CardComponent from 'components/cards/CardComponent';
 import api from 'services/api';
+import { Link } from 'react-router-dom';
+import SLUGS from 'resources/slugs';
 
 const useStyles = createUseStyles((theme) => ({
     itemTitle: {
@@ -18,7 +20,7 @@ function PendignProyectsComponent({ containerStyles }) {
     const theme = useTheme();
     const classes = useStyles({ theme });
 
-    
+
     const [proyectosPendientes, setProyectosPendientes] = useState([]);
 
 
@@ -60,7 +62,7 @@ function PendignProyectsComponent({ containerStyles }) {
         <CardComponent
             containerStyles={containerStyles}
             title='Proyectos pendientes'
-            link='Ver detalles'
+            link={<Link to={SLUGS.proyectos}>Ver todos</Link>}
             subtitle='Hoy es :'
             subtitleTwo={getTodayDate()}
             items={proyectosPendientes.map((proyecto, index) =>

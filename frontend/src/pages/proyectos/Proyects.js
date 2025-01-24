@@ -1,93 +1,140 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Column, Row } from 'simple-flexbox';
 import { createUseStyles } from 'react-jss';
-import MiniCardComponent from 'components/cards/MiniCardComponent';
-import ProjectListComponent from 'components/proyectos/ProjectListComponent';
-import ProjectDetailsComponent from 'components/proyectos/ProjetcDetailsComponent';
+import api from 'services/api';
 
 const useStyles = createUseStyles({
     container: {
-        padding: 30,
+        padding: '30px',
         background: '#f5f5f5',
         minHeight: '100vh',
     },
     title: {
-        fontSize: 20,
+        fontSize: '24px',
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginBottom: '20px',
         textAlign: 'center',
     },
-    projectList: {
-        marginTop: 30,
+    table: {
+        width: '100%',
+        borderCollapse: 'collapse',
+        marginBottom: '20px',
     },
-    miniCardContainer: {
-        flexGrow: 1,
-        marginRight: 30,
-        cursor: 'pointer', // Asegura que se vea clicable
-        '@media (max-width: 768px)': {
-            marginTop: 30,
-            maxWidth: 'none',
+    th: {
+        background: '#007bff',
+        color: '#fff',
+        padding: '10px',
+        textAlign: 'left',
+        fontWeight: 'bold',
+    },
+    td: {
+        padding: '10px',
+        borderBottom: '1px solid #ddd',
+    },
+    card: {
+        marginTop: '20px',
+        padding: '15px',
+        background: '#fff',
+        borderRadius: '8px',
+        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+    },
+    cardTitle: {
+        marginBottom: '15px',
+        fontSize: '1.5rem',
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    cardText: {
+        marginBottom: '10px',
+    },
+    button: {
+        marginTop: '10px',
+        padding: '10px 20px',
+        background: '#007bff',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        '&:hover': {
+            background: '#0056b3',
         },
-    },
-    row: {
-        marginTop: 30,
     },
 });
 
-function Proyects() {
+function Proyectos() {
     const classes = useStyles();
+    const [projects, setProjects] = useState([]);
     const [selectedProject, setSelectedProject] = useState(null);
 
-    // Lista de proyectos de ejemplo
-    const projects = [
-        { id: 1, name: 'Proyecto A', company: 'Empresa 1', startDate: '2025-01-01', endDate: '2025-06-01', details: 'Desarrollo de una aplicación móvil.' },
-        { id: 2, name: 'Proyecto B', company: 'Empresa 2', startDate: '2025-02-15', endDate: '2025-08-15', details: 'Implementación de un sistema ERP.' },
-        { id: 3, name: 'Proyecto C', company: 'Empresa 3', startDate: '2025-03-01', endDate: '2025-09-30', details: 'Creación de un sitio web e-commerce.' },
-    ];
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const response = await api.get('/proyectos'); 
+                setProjects(response.data);
+            } catch (error) {
+                console.error('Error al obtener los proyectos:', error);
+            }
+        };
 
-    const handleSelectProject = (project) => {
-        setSelectedProject(project); // Cambia el estado con el proyecto seleccionado
-    };
-
-    const handleBackToList = () => {
-        setSelectedProject(null); // Vuelve a la lista
-    };
+        fetchProjects();
+    }, []);
 
     return (
         <div className={classes.container}>
-            <h1 className={classes.title}>Proyectos</h1>
-            {selectedProject ? (
-                <ProjectDetailsComponent
-                    project={selectedProject}
-                    onBack={handleBackToList}
-                />
-            ) : (
-                <>
-                    {/* MiniCard para el resumen */}
-                    <Row
-                        className={classes.row}
-                        wrap
-                        horizontal="space-between"
-                        breakpoints={{ 768: 'column' }}
-                    >
-                        <MiniCardComponent
-                            className={classes.miniCardContainer}
-                            title="Total Proyectos"
-                            value={projects.length.toString()}
-                        />
-                    </Row>
+            <h1 className={classes.title}>Lista de Proyectos</h1>
 
-                    {/* Lista de proyectos */}
-                    <div className={classes.projectList}>
-                        <ProjectListComponent
-                            projects={projects}
-                            onSelect={handleSelectProject} // Prop para seleccionar proyecto
-                        />
-                    </div>
-                </>
+            {selectedProject ? (
+                <div className={classes.card}>
+                    <h2 className={classes.cardTitle}>Detalles del Proyecto</h2>
+                    <p className={classes.cardText}><strong>Nombre:</strong> {selectedProject.nombre}</p>
+                    <p className={classes.cardText}><strong>Descripción:</strong> {selectedProject.descripcion}</p>
+                    <p className={classes.cardText}><strong>Estado:</strong> {selectedProject.estado}</p>
+                    <p className={classes.cardText}><strong>Prioridad:</strong> {selectedProject.prioridad}</p>
+                    <p className={classes.cardText}><strong>Fecha de Creación:</strong> {selectedProject.fechaCreacion}</p>
+                    <p className={classes.cardText}><strong>Fecha de Vencimiento:</strong> {selectedProject.fechaVencimiento}</p>
+                    <p className={classes.cardText}><strong>Etiqueta:</strong> {selectedProject.etiqueta}</p>
+                    <p className={classes.cardText}><strong>Precio:</strong> ${selectedProject.precio}</p>
+                    <p className={classes.cardText}><strong>Kanban:</strong> {selectedProject.kanban ? 'Sí' : 'No'}</p>
+                    <button
+                        className={classes.button}
+                        onClick={() => setSelectedProject(null)}
+                    >
+                        Volver a la lista
+                    </button>
+                </div>
+            ) : (
+                <table className={classes.table}>
+                    <thead>
+                        <tr>
+                            <th className={classes.th}>Nombre</th>
+                            <th className={classes.th}>Empresa</th>
+                            <th className={classes.th}>Estado</th>
+                            <th className={classes.th}>Prioridad</th>
+                            <th className={classes.th}>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {projects.map((project) => (
+                            <tr key={project.id}>
+                                <td className={classes.td}>{project.nombre}</td>
+                                <td className={classes.td}>{project.empresa}</td>
+                                <td className={classes.td}>{project.estado}</td>
+                                <td className={classes.td}>{project.prioridad}</td>
+                                <td className={classes.td}>
+                                    <button
+                                        className={classes.button}
+                                        onClick={() => setSelectedProject(project)}
+                                    >
+                                        Ver Detalles
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             )}
         </div>
     );
 }
 
-export default Proyects;
+export default Proyectos;
