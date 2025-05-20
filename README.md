@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# 👷 Gestión de Trabajadores - ACT2M13
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación en Java para la gestión de trabajadores de una empresa. Permite registrar, modificar, eliminar y visualizar trabajadores, utilizando una interfaz gráfica sencilla y almacenamiento de datos.
 
-## Available Scripts
+Repositorio original: [bymrario/Gestion_de_trabajadores_ACT2M13](https://github.com/bymrario/Gestion_de_trabajadores_ACT2M13)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🧩 Funcionalidades principales
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Alta de nuevos trabajadores
+- Modificación y eliminación de trabajadores existentes
+- Listado de trabajadores registrados
+- Interfaz gráfica sencilla con Java Swing
+- Validación de campos básicos (nombre, apellidos, DNI, etc.)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠 Tecnologías utilizadas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Lenguaje de programación**: Java
+- **Interfaz gráfica**: Swing
+- **Persistencia de datos**: Archivos locales o listas en memoria
+- **Entorno de desarrollo**: NetBeans o similar
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📁 Estructura del proyecto
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+Gestion_de_trabajadores_ACT2M13/
+├── src/
+│   └── trabajador/          # Paquete con clases y vistas del sistema
+├── .gitignore
+├── README.md
+└── otros archivos del IDE
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## ⚙️ Ejecución
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Clonar el repositorio:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   git clone https://github.com/bymrario/Gestion_de_trabajadores_ACT2M13.git
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Abrir el proyecto en NetBeans (o importar manualmente en otro IDE compatible).
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Ejecutar la clase principal desde el entorno gráfico o consola.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📝 Licencia
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Este proyecto se publica bajo la licencia MIT. Revisa el archivo [LICENSE](LICENSE) para más información.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📬 Contacto
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Para dudas, sugerencias o colaboración, visita el perfil del autor: [bymrario](https://github.com/bymrario)
